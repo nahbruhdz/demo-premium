@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>2nde Chance · Streetwear upcyclé, fabriqué en France</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Instrument+Sans:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ================= THEME (piloté par CONFIG.theme via JS) ================= */
+:root{
+  --ink:#07070F; --paper:#F5F4FB; --paper-2:#ECEAF6;
+  --accent:#6C5CE7; --accent-2:#00D2FF; --accent-2-ink:#0E7490; --accent-3:#FF3D9A; --hero-bg:#06060E;
+  --line:rgba(7,7,15,.12); --line-d:rgba(255,255,255,.16);
+  --ease:cubic-bezier(.19,1,.22,1); --ease-2:cubic-bezier(.65,0,.35,1);
+  --shell:min(1360px,92vw);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:"Instrument Sans",system-ui,sans-serif;font-size:17px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3{font-family:"Fraunces",Georgia,serif;font-weight:400;line-height:1.02;letter-spacing:-.015em}
+.mono{font-family:"Geist Mono",ui-monospace,monospace;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase}
+a{color:inherit;text-decoration:none}
+img,video{display:block;max-width:100%}
+.shell{width:var(--shell);margin-inline:auto}
+::selection{background:var(--accent);color:#fff}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+.nav.dark :focus-visible,.hero :focus-visible,.quote :focus-visible,.mobile-menu :focus-visible{outline-color:var(--accent-2)}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:60;opacity:.03;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* ================= NAV ================= */
+.nav{position:fixed;top:16px;left:50%;transform:translateX(-50%);width:var(--shell);z-index:40;display:flex;align-items:center;justify-content:space-between;padding:11px 12px 11px 22px;border-radius:15px;background:rgba(244,243,238,.6);border:1px solid rgba(255,255,255,.55);box-shadow:0 1px 0 rgba(255,255,255,.7) inset,0 16px 40px -22px rgba(14,15,13,.4);backdrop-filter:blur(16px) saturate(1.6);-webkit-backdrop-filter:blur(16px) saturate(1.6);transition:transform .55s var(--ease),background .4s}
+.nav.dark{background:rgba(16,17,14,.5);border-color:rgba(255,255,255,.14);box-shadow:0 1px 0 rgba(255,255,255,.16) inset,0 16px 40px -20px rgba(0,0,0,.7);color:var(--paper)}
+.nav .brand{font-family:"Fraunces";font-size:1.28rem;letter-spacing:.01em;display:flex;align-items:center;gap:9px}
+.nav .brand .m{width:22px;height:22px}
+.nav-links{display:flex;gap:30px;align-items:center}
+.nav-links a{font-size:.9rem;opacity:.72;transition:opacity .3s}
+.nav-links a:hover{opacity:1}
+.nav-cta{font-size:.85rem;font-weight:600;padding:10px 18px;border-radius:11px;background:linear-gradient(120deg,var(--accent),var(--accent-3));color:#fff;transition:transform .4s var(--ease)}
+.nav-cta:hover{transform:translateY(-1px)}
+.nav-cta:active{transform:translateY(0) scale(.98)}
+.nav-burger{display:none;flex-direction:column;gap:5px;width:40px;height:40px;align-items:center;justify-content:center;border-radius:10px;cursor:pointer;background:rgba(255,255,255,.06);border:1px solid var(--line-d)}
+.nav-burger span{width:18px;height:1.6px;background:currentColor;transition:transform .35s var(--ease),opacity .3s}
+.nav-burger.x span:nth-child(1){transform:translateY(3.3px) rotate(45deg)}
+.nav-burger.x span:nth-child(2){transform:translateY(-3.3px) rotate(-45deg)}
+.mobile-menu{position:fixed;inset:0;z-index:39;background:color-mix(in srgb,var(--hero-bg) 96%,#000);backdrop-filter:blur(8px);display:flex;flex-direction:column;justify-content:center;gap:8px;padding:0 34px;transform:translateY(-100%);visibility:hidden;transition:transform .5s var(--ease),visibility .5s;color:var(--paper)}
+.mobile-menu.open{transform:none;visibility:visible}
+.mobile-menu a{font-family:"Fraunces";font-size:2.2rem;padding:14px 0;border-bottom:1px solid var(--line-d)}
+.mobile-menu .mm-cta{margin-top:28px;font-family:"Instrument Sans";font-size:1rem;border:none;text-align:center;padding:16px;border-radius:13px;background:linear-gradient(120deg,var(--accent),var(--accent-3));color:#fff}
+
+/* ================= HERO ================= */
+.hero{position:relative;min-height:100svh;display:flex;align-items:center;padding:150px 0 90px;background:var(--hero-bg);color:var(--paper);overflow:hidden}
+.hero-bg{position:absolute;inset:-20%;z-index:0;background:radial-gradient(55% 55% at 74% 28%,color-mix(in srgb,var(--accent) 40%,transparent),transparent 68%),radial-gradient(45% 45% at 22% 78%,color-mix(in srgb,var(--accent-2) 32%,transparent),transparent 68%),radial-gradient(40% 40% at 60% 90%,color-mix(in srgb,var(--accent-3) 26%,transparent),transparent 66%),var(--hero-bg);filter:saturate(1.15);animation:bgdrift 16s var(--ease-2) infinite alternate}
+@keyframes bgdrift{to{transform:translate3d(-3%,2%,0) scale(1.06)}}
+.hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:1.04fr .96fr;gap:48px;align-items:center;width:var(--shell);margin-inline:auto}
+.eyebrow{display:flex;align-items:center;gap:12px;color:var(--accent-2);margin-bottom:26px;overflow:hidden}
+.eyebrow span{display:inline-block;transform:translateY(120%);animation:up .9s var(--ease) .1s forwards}
+.eyebrow::before{content:"";width:40px;height:1px;background:var(--accent-2);transform:scaleX(0);transform-origin:left;animation:lineIn .9s var(--ease) .4s forwards}
+@keyframes lineIn{to{transform:scaleX(1)}}
+.hero h1{font-size:clamp(3rem,6.6vw,6.2rem);margin-bottom:26px}
+.hero h1 .ln{display:block;overflow:hidden}
+.hero h1 .ln i{display:block;font-style:normal;transform:translateY(112%);animation:up 1s var(--ease) forwards}
+.hero h1 .ln:nth-child(1) i{animation-delay:.15s}
+.hero h1 .ln:nth-child(2) i{animation-delay:.28s}
+.hero h1 .ln:nth-child(3) i{animation-delay:.41s}
+.hero h1 em{font-style:italic;font-weight:300;color:var(--accent-2)}
+@keyframes up{to{transform:translateY(0)}}
+.hero-sub{font-size:1.12rem;max-width:34ch;color:rgba(245,244,251,.8);margin-bottom:38px;opacity:0;animation:fade 1s var(--ease) .6s forwards}
+.hero-actions{display:flex;gap:16px;align-items:center;flex-wrap:wrap;opacity:0;animation:fade 1s var(--ease) .72s forwards}
+@keyframes fade{to{opacity:1}}
+.btn-primary{padding:15px 28px;border-radius:13px;background:linear-gradient(120deg,var(--accent),var(--accent-3),var(--accent-2),var(--accent));background-size:280% 100%;background-position:0 0;color:#fff;font-weight:600;font-size:.98rem;transition:transform .3s var(--ease),box-shadow .45s var(--ease),background-position .6s var(--ease);box-shadow:0 14px 40px -12px color-mix(in srgb,var(--accent) 80%,transparent);will-change:transform}
+.btn-primary:hover,.btn-primary:focus-visible{background-position:100% 0;box-shadow:0 24px 54px -14px color-mix(in srgb,var(--accent-3) 75%,transparent)}
+.btn-primary:active{transform:translateY(1px) scale(.99)}
+.btn-ghost{font-size:.98rem;color:var(--paper);display:flex;align-items:center;gap:9px;padding:12px 4px;position:relative}
+.btn-ghost::after{content:"";position:absolute;left:4px;bottom:6px;width:calc(100% - 8px);height:1px;background:var(--paper);transform:scaleX(.28);transform-origin:left;transition:transform .5s var(--ease)}
+.btn-ghost:hover::after,.btn-ghost:focus-visible::after{transform:scaleX(1)}
+.hero-trust{display:flex;gap:26px;margin-top:52px;align-items:center;opacity:0;animation:fade 1s var(--ease) .85s forwards}
+.hero-trust .stat b{font-family:"Fraunces";font-size:1.7rem;font-weight:500;display:block;line-height:1}
+.hero-trust .stat span{color:rgba(245,244,251,.66);font-size:.82rem}
+.hero-trust .sep{width:1px;height:34px;background:var(--line-d)}
+.hero-visual{position:relative;aspect-ratio:4/5;border-radius:22px;opacity:0;animation:fade 1.2s var(--ease) .3s forwards}
+.hv-clip{position:absolute;inset:0;border-radius:22px;overflow:hidden;background:radial-gradient(120% 120% at 32% 20%,#14131f,#070510);box-shadow:0 50px 100px -46px rgba(0,0,0,.8),0 2px 0 rgba(255,255,255,.14) inset}
+.hv-clip canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hv-clip video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.orb{position:absolute;inset:0;display:grid;place-items:center;transition:opacity .8s ease}
+.hero-visual.live .orb{opacity:0}
+@property --a{syntax:'<angle>';inherits:false;initial-value:0deg}
+.orb .blob{--a:0deg;width:58%;aspect-ratio:1;
+  background:conic-gradient(from var(--a),color-mix(in srgb,var(--accent) 92%,#fff),var(--accent-2),#f4e6c4,var(--accent-3),color-mix(in srgb,var(--accent) 92%,#fff));
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 5 C71 27 79 46 79 62 C79 80 66 93 50 95 C34 93 21 80 21 62 C21 46 29 27 50 5 Z'/%3E%3C/svg%3E") center/contain no-repeat;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 5 C71 27 79 46 79 62 C79 80 66 93 50 95 C34 93 21 80 21 62 C21 46 29 27 50 5 Z'/%3E%3C/svg%3E") center/contain no-repeat;
+  filter:drop-shadow(0 24px 44px rgba(0,0,0,.55));animation:sweep 7s linear infinite}
+@keyframes sweep{to{--a:360deg}}
+.orb .ring{position:absolute;width:78%;height:78%;border-radius:50%;border:1px solid color-mix(in srgb,var(--accent) 32%,transparent);animation:spin 26s linear infinite reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+.tag{position:absolute;z-index:5;padding:11px 15px;border-radius:13px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.24);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:var(--paper);box-shadow:0 12px 34px -16px rgba(0,0,0,.8),0 1px 0 rgba(255,255,255,.2) inset;will-change:transform}
+.tag .k{display:block;font-family:"Geist Mono";font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;opacity:.72;margin-bottom:2px}
+.tag .v{font-family:"Fraunces";font-size:1.14rem}
+.tag.t1{top:7%;right:-18px}
+.tag.t2{bottom:9%;left:-20px}
+
+/* ================= MARQUEE ================= */
+.marquee{border-block:1px solid var(--line);padding:24px 0;overflow:hidden;background:var(--paper-2)}
+.marquee-track{display:flex;gap:56px;width:max-content;animation:slide 40s linear infinite}
+.marquee:hover .marquee-track{animation-play-state:paused}
+@keyframes slide{to{transform:translateX(-50%)}}
+.mq-item{display:flex;align-items:center;gap:12px;white-space:nowrap;color:rgba(7,7,15,.6)}
+.mq-item b{font-family:"Fraunces";font-size:1.35rem;color:var(--ink);font-weight:500}
+.mq-item .dot{width:5px;height:5px;border-radius:50%;background:var(--accent)}
+
+/* ================= SHOWCASE ================= */
+.showcase{padding:120px 0}
+.showcase .shell{display:grid;grid-template-columns:1.05fr .95fr;gap:60px;align-items:center}
+.sc-media{position:relative;aspect-ratio:4/5;border-radius:20px;overflow:hidden;background:linear-gradient(145deg,var(--paper-2),#dcd8ee);box-shadow:0 40px 90px -46px rgba(14,15,13,.5),0 1px 0 rgba(255,255,255,.6) inset}
+.sc-media img,.sc-media video{width:100%;height:100%;object-fit:cover}
+.sc-frame{position:absolute;inset:0;display:grid;place-items:center;background:radial-gradient(120% 100% at 50% 0%,#fff,transparent 60%)}
+.sc-frame::before{content:"";position:absolute;inset:20px;border:1px solid rgba(14,15,13,.09);border-radius:12px;pointer-events:none}
+.sc-frame .mono{position:absolute;top:20px;left:22px;color:rgba(7,7,15,.42)}
+.sc-frame .glyph{width:44%;opacity:.9;filter:drop-shadow(0 18px 30px rgba(14,15,13,.18))}
+.sc-media .badge{position:absolute;bottom:18px;left:18px;z-index:3;background:var(--ink);color:var(--paper);padding:10px 16px;border-radius:12px;display:flex;gap:10px;align-items:baseline;box-shadow:0 12px 30px -14px rgba(0,0,0,.6)}
+.sc-media .badge b{font-family:"Fraunces";font-size:1.2rem}
+.sc-media .badge span{font-size:.72rem;opacity:.72}
+.sc-copy .mono{color:var(--accent-2-ink);display:block;margin-bottom:20px}
+.sc-copy h2{font-size:clamp(2.2rem,3.8vw,3.5rem);margin-bottom:22px}
+.sc-copy .lead{color:rgba(7,7,15,.72);max-width:42ch;margin-bottom:34px}
+.points{display:flex;flex-direction:column;gap:2px}
+.point{display:grid;grid-template-columns:auto 1fr;gap:18px;padding:20px 0;border-top:1px solid var(--line);align-items:start}
+.point:last-child{border-bottom:1px solid var(--line)}
+.point .n{font-family:"Geist Mono";font-size:.72rem;color:var(--accent-2-ink);padding-top:4px}
+.point b{font-family:"Fraunces";font-size:1.3rem;font-weight:500;display:block;margin-bottom:4px}
+.point span{color:rgba(7,7,15,.68);font-size:.96rem}
+
+/* ================= BENTO ================= */
+.bento{padding:20px 0 120px}
+.bento .head{width:var(--shell);margin:0 auto 40px;display:flex;justify-content:space-between;align-items:flex-end;gap:30px}
+.bento .head h2{font-size:clamp(2.2rem,4vw,3.6rem)}
+.bento .head p{max-width:34ch;color:rgba(7,7,15,.68)}
+.bento-grid{width:var(--shell);margin-inline:auto;display:grid;grid-template-columns:repeat(6,1fr);gap:18px}
+.cell{border-radius:18px;padding:30px;background:var(--paper-2);border:1px solid var(--line);position:relative;overflow:hidden;min-height:220px;display:flex;flex-direction:column;justify-content:flex-end;transition:transform .5s var(--ease),box-shadow .5s var(--ease)}
+.cell:hover{box-shadow:0 30px 60px -34px rgba(14,15,13,.4)}
+.cell h3{font-size:1.5rem;margin-bottom:8px}
+.cell p{color:rgba(7,7,15,.68);font-size:.95rem}
+.cell .glow{position:absolute;inset:0;background:radial-gradient(70% 70% at 80% 10%,color-mix(in srgb,var(--accent) 24%,transparent),transparent 60%);opacity:.75}
+.cell.c-a{grid-column:span 3}.cell.c-b{grid-column:span 3}
+.cell.c-c{grid-column:span 2}.cell.c-d{grid-column:span 2}.cell.c-e{grid-column:span 2}
+.cell.dark{background:var(--ink);color:var(--paper);border-color:transparent}
+.cell.dark p{color:rgba(245,244,251,.7)}
+.cell .kpi{font-family:"Fraunces";font-size:3rem;font-weight:500;color:var(--accent-2);line-height:1;margin-bottom:6px}
+
+/* ================= STEPS ================= */
+.steps{padding:0 0 130px}
+.steps .head{width:var(--shell);margin:0 auto 44px;display:flex;justify-content:space-between;align-items:flex-end;gap:30px}
+.steps .head h2{font-size:clamp(2.2rem,4vw,3.6rem)}
+.steps .head p{max-width:34ch;color:rgba(7,7,15,.68)}
+.steps-scroll{display:flex;gap:22px;padding-inline:max(calc((100% - var(--shell))/2),4vw);overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:8px}
+.steps-scroll::-webkit-scrollbar{display:none}
+.step{scroll-snap-align:start;flex:0 0 min(430px,80vw);background:var(--paper-2);border:1px solid var(--line);border-radius:20px;padding:32px;min-height:400px;display:flex;flex-direction:column;justify-content:space-between;transition:transform .5s var(--ease),box-shadow .5s var(--ease)}
+.step:hover{box-shadow:0 30px 60px -34px rgba(14,15,13,.4)}
+.step .num{font-family:"Geist Mono";font-size:.72rem;letter-spacing:.16em;color:var(--accent-2-ink)}
+.step .art{height:200px;border-radius:14px;margin:22px 0;position:relative;overflow:hidden;background:linear-gradient(150deg,#e7e4f4,#d4cfe6)}
+.step .art .g{position:absolute;inset:0;background:radial-gradient(80% 80% at 30% 20%,color-mix(in srgb,var(--accent) 32%,transparent),transparent 60%)}
+.step .art .idx{position:absolute;right:16px;bottom:8px;font-family:"Fraunces";font-size:4.4rem;color:rgba(7,7,15,.1);font-weight:600}
+.step h3{font-size:1.55rem;margin-bottom:9px}
+.step p{color:rgba(7,7,15,.68);font-size:.95rem}
+
+/* ================= QUOTE / AVIS ================= */
+.quote{padding:104px 0;background:var(--ink);color:var(--paper);position:relative;overflow:hidden}
+.quote .bg{position:absolute;inset:0;background:radial-gradient(50% 80% at 85% 20%,color-mix(in srgb,var(--accent) 20%,transparent),transparent 60%)}
+.quote .shell{position:relative;display:grid;grid-template-columns:.32fr 1fr;gap:40px;align-items:center}
+.quote .mark{font-family:"Fraunces";font-size:9rem;line-height:.55;color:color-mix(in srgb,var(--accent-2) 55%,transparent)}
+.qhead{display:flex;align-items:center;gap:10px;margin-bottom:26px;font-size:.92rem;color:rgba(245,244,251,.72)}
+.qhead .stars{color:#FFC24B;letter-spacing:2px}
+.qhead b{font-family:"Fraunces";color:#fff;font-size:1.1rem}
+.qcar{position:relative;min-height:210px}
+.qslide{position:absolute;top:0;left:0;width:100%;opacity:0;transform:translateY(18px);transition:opacity .6s var(--ease),transform .6s var(--ease);pointer-events:none}
+.qslide.on{opacity:1;transform:none;pointer-events:auto;z-index:2}
+.qslide blockquote{font-family:"Fraunces";font-weight:300;font-size:clamp(1.6rem,3.1vw,2.8rem);line-height:1.18}
+.qslide blockquote em{font-style:italic;color:var(--accent-2)}
+.qslide .cite{margin-top:26px;display:flex;align-items:center;gap:14px}
+.qslide .cite .av{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;font-family:"Fraunces";background:linear-gradient(135deg,var(--accent),var(--accent-3));color:#fff;font-size:1.1rem}
+.qslide .cite b{display:block;font-family:"Instrument Sans";font-weight:600;font-size:.95rem}
+.qslide .cite span{font-size:.82rem;opacity:.72}
+.qdots{position:absolute;bottom:-42px;left:0;display:flex;gap:9px}
+.qdot{width:9px;height:9px;border-radius:50%;border:none;background:rgba(255,255,255,.28);cursor:pointer;transition:background .3s,width .3s;padding:0}
+.qdot:hover{background:rgba(255,255,255,.5)}
+.qdot.on{background:var(--accent-2);width:26px;border-radius:5px}
+.qdot:focus-visible{outline:2px solid var(--paper);outline-offset:4px}
+
+/* ================= GARANTIE (risk-reversal) ================= */
+.guarantee{padding:96px 0;background:linear-gradient(120deg,color-mix(in srgb,var(--accent) 10%,var(--paper)),color-mix(in srgb,var(--accent-2) 8%,var(--paper)))}
+.guarantee .shell{display:grid;grid-template-columns:1.1fr .9fr;gap:50px;align-items:center}
+.g-copy .mono{color:var(--accent-2-ink);display:block;margin-bottom:18px}
+.g-copy h2{font-size:clamp(2rem,3.6vw,3.2rem);margin-bottom:18px}
+.g-copy p{color:rgba(7,7,15,.72);max-width:46ch}
+.g-pillars{display:flex;gap:16px}
+.g-pill{flex:1;background:rgba(255,255,255,.7);border:1px solid var(--line);border-radius:16px;padding:24px 18px;text-align:center;backdrop-filter:blur(6px)}
+.g-pill b{font-family:"Fraunces";font-size:1.6rem;font-weight:500;display:block;color:var(--accent)}
+.g-pill span{font-size:.82rem;color:rgba(7,7,15,.66);display:block;margin-top:4px}
+
+/* ================= FAQ ================= */
+.faq{padding:110px 0}
+.faq-shell{display:grid;grid-template-columns:.7fr 1.3fr;gap:50px;align-items:start}
+.faq h2{font-size:clamp(2rem,3.6vw,3.2rem);position:sticky;top:110px}
+.faq-list{display:flex;flex-direction:column}
+.faq-item{border-top:1px solid var(--line)}
+.faq-item:last-child{border-bottom:1px solid var(--line)}
+.faq-item summary{list-style:none;cursor:pointer;padding:24px 0;display:flex;justify-content:space-between;align-items:center;gap:20px;font-family:"Fraunces";font-size:1.25rem;font-weight:500}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-ic{position:relative;width:16px;height:16px;flex:none}
+.faq-ic::before,.faq-ic::after{content:"";position:absolute;background:var(--accent);border-radius:2px;transition:transform .35s var(--ease),opacity .3s}
+.faq-ic::before{top:7px;left:0;width:16px;height:2px}
+.faq-ic::after{top:0;left:7px;width:2px;height:16px}
+.faq-item[open] .faq-ic::after{transform:rotate(90deg);opacity:0}
+.faq-a{padding:0 0 26px;color:rgba(7,7,15,.72);max-width:60ch;font-size:1rem;line-height:1.55}
+
+/* ================= CTA ================= */
+.cta{padding:120px 0 130px}
+.cta .shell{display:grid;grid-template-columns:1.2fr .8fr;gap:50px;align-items:end}
+.cta h2{font-size:clamp(2.6rem,5.4vw,5rem);max-width:15ch}
+.cta h2 em{font-style:italic;font-weight:300;color:var(--accent)}
+.cta-side{padding-bottom:6px}
+.cta-side .price{display:flex;align-items:baseline;gap:10px;margin-bottom:8px}
+.cta-side .price b{font-family:"Fraunces";font-size:3rem;font-weight:500}
+.cta-side .price .old{color:rgba(7,7,15,.6);text-decoration:line-through;font-size:1.1rem}
+.cta-side p{color:rgba(7,7,15,.72);margin-bottom:22px;font-size:.95rem}
+.cta-side .btn-primary{width:100%;justify-content:center;display:flex}
+.cta-micro{display:block;text-align:center;margin-top:14px;font-size:.8rem;color:rgba(7,7,15,.58)}
+
+/* ================= FOOTER ================= */
+.reassure{border-top:1px solid var(--line);background:var(--paper-2)}
+.reassure .shell{display:flex;flex-wrap:wrap;justify-content:center;gap:14px 40px;padding:22px 0}
+.reassure span{display:flex;align-items:center;gap:9px;font-size:.86rem;color:rgba(7,7,15,.72)}
+.reassure span::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent-2-ink)}
+footer{border-top:1px solid var(--line);padding:60px 0 40px;background:var(--paper-2)}
+footer .shell{display:flex;justify-content:space-between;align-items:flex-start;gap:30px;flex-wrap:wrap}
+footer .brand{font-family:"Fraunces";font-size:1.6rem;display:flex;align-items:center;gap:9px}
+footer .brand .m{width:24px;height:24px}
+footer .cols{display:flex;gap:66px}
+footer .col b{font-family:"Geist Mono";font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(7,7,15,.62);display:block;margin-bottom:14px}
+footer .col a{display:block;font-size:.92rem;color:rgba(7,7,15,.78);margin-bottom:9px;transition:color .3s}
+footer .col a:hover{color:var(--ink)}
+footer .fine{width:var(--shell);margin:44px auto 0;padding-top:22px;border-top:1px solid var(--line);display:flex;justify-content:space-between;color:rgba(7,7,15,.6);font-size:.8rem;flex-wrap:wrap;gap:10px}
+
+/* ================= REVEALS ================= */
+.js [data-rise]{opacity:0;transform:translateY(34px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+[data-rise].in{opacity:1;transform:none}
+.js [data-left]{opacity:0;transform:translateX(-38px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+[data-left].in{opacity:1;transform:none}
+.js [data-right]{opacity:0;transform:translateX(38px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+[data-right].in{opacity:1;transform:none}
+[data-d="1"]{transition-delay:.08s}[data-d="2"]{transition-delay:.16s}[data-d="3"]{transition-delay:.24s}[data-d="4"]{transition-delay:.32s}
+
+/* ================= RESPONSIVE ================= */
+@media(max-width:960px){
+  .hero-grid,.showcase .shell,.cta .shell,.quote .shell,.guarantee .shell,.faq-shell{grid-template-columns:1fr;gap:40px}
+  .hero-visual{aspect-ratio:5/4;order:-1}
+  .tag.t1{right:8px}.tag.t2{left:8px}
+  .quote .mark{display:none}
+  .hero-trust{flex-wrap:wrap;gap:16px 22px}
+  .bento-grid{grid-template-columns:repeat(2,1fr)}
+  .cell.c-a,.cell.c-b,.cell.c-c,.cell.c-d,.cell.c-e{grid-column:span 2}
+  .bento .head,.steps .head{flex-direction:column;align-items:flex-start;gap:14px}
+  .g-pillars{gap:10px}
+  .faq h2{position:static}
+  .nav-links{display:none}.nav-burger{display:flex}.nav .nav-cta{display:none}
+}
+@media(max-width:560px){ .g-pillars{flex-direction:column} }
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .eyebrow span,.hero h1 .ln i{transform:none!important;animation:none!important}
+  .hero-sub,.hero-actions,.hero-trust,.hero-visual{opacity:1!important;animation:none!important}
+  [data-rise],[data-left],[data-right]{transform:none!important}
+  .marquee-track{animation-duration:120s!important}
+  .hero-bg,.orb .blob,.orb .ring{animation:none!important}
+}
+</style>
+</head>
+<body>
+<div class="ptop" id="ptop" aria-hidden="true"></div>
+<noscript><div style="padding:22px;text-align:center;font-family:sans-serif;background:#07070F;color:#fff">Activez JavaScript pour voir ce site dans son intégralité, ou écrivez-nous directement, nous répondons sous 24 h.</div></noscript>
+<div id="app"></div>
+
+<script>
+document.documentElement.classList.add('js');
+/* ============================================================
+   CONFIG — TOUT le contenu vit ici. Le template devient LE SITE DU PROSPECT.
+   Voix = la MARQUE qui parle à SON client final (jamais "agence/démo").
+   Tokens [entre crochets] = à remplacer par les vraies données du prospect.
+   Règle projet : ne jamais inventer une note/un avis/un chiffre. Politiques
+   (livraison, retours, 3x) = gabarits à confirmer avec le prospect.
+   ============================================================ */
+const CONFIG = {
+  "brand": {
+    "name": "2nde Chance",
+    "accentMark": true
+  },
+  "theme": {
+    "ink": "#0B0B12",
+    "paper": "#F6F5F1",
+    "paper2": "#ECEAE2",
+    "accent": "#3B5BDB",
+    "accent2": "#20C997",
+    "accent2Ink": "#087F5B",
+    "accent3": "#FD7E14",
+    "heroBg": "#0A0A12"
+  },
+  "nav": {
+    "links": [
+      {
+        "label": "La collection",
+        "href": "#showcase"
+      },
+      {
+        "label": "L'upcycling",
+        "href": "#steps"
+      },
+      {
+        "label": "La marque",
+        "href": "#bento"
+      },
+      {
+        "label": "FAQ",
+        "href": "#faq"
+      }
+    ],
+    "cta": {
+      "label": "Découvrir",
+      "href": "#showcase"
+    }
+  },
+  "hero": {
+    "eyebrow": "Streetwear upcyclé · fabriqué en France",
+    "titleLines": [
+      "Le vestiaire qui",
+      "donne une 2nde vie<em>.</em>"
+    ],
+    "sub": "Sneakers et pièces uniques, faites à partir de matières recyclées, pensées à Dijon, fabriquées en France. Vous portez, vous rapportez, on recycle, vous êtes crédité.",
+    "primary": {
+      "label": "Découvrir la collection",
+      "href": "#showcase"
+    },
+    "secondary": {
+      "label": "L'upcycling, comment ça marche →",
+      "href": "#steps"
+    },
+    "stats": [
+      {
+        "v": "100%",
+        "k": "matières recyclées"
+      },
+      {
+        "v": "25€",
+        "k": "rendus par consigne"
+      },
+      {
+        "v": "75%",
+        "k": "matières françaises"
+      }
+    ],
+    "tags": [
+      {
+        "k": "Fabriqué",
+        "v": "en France"
+      },
+      {
+        "k": "Pièce",
+        "v": "unique"
+      }
+    ],
+    "videoUrl": ""
+  },
+  "marquee": [
+    {
+      "b": "Fait en France",
+      "t": "Romans-sur-Isère"
+    },
+    {
+      "b": "100% recyclé",
+      "t": "denim upcyclé"
+    },
+    {
+      "b": "Consigne",
+      "t": "jusqu'à 25€ rendus"
+    },
+    {
+      "b": "Pièces uniques",
+      "t": "aucune identique"
+    },
+    {
+      "b": "Vus aux",
+      "t": "Galeries Lafayette Dijon"
+    },
+    {
+      "b": "75%",
+      "t": "matières françaises"
+    }
+  ],
+  "showcase": {
+    "eyebrow": "La collection Urbana",
+    "title": "Des pièces uniques,\nnées du recyclage.",
+    "lead": "Chaque vêtement est fait de denim et de chutes de tissu récupérés près de Dole. Aucun n'est identique. Vous portez une pièce qui n'existe qu'une seule fois.",
+    "imageUrl": "",
+    "badge": {
+      "b": "Pièce unique",
+      "s": "édition unique"
+    },
+    "points": [
+      {
+        "b": "Upcyclé, jamais jetable",
+        "s": "Denim et chutes récupérés, transformés en pièces neuves plutôt qu'en déchets."
+      },
+      {
+        "b": "Rapportez, soyez crédité",
+        "s": "Rendez vos paires usées, recevez jusqu'à 25€. On réinjecte environ la moitié de la matière."
+      },
+      {
+        "b": "Fabriqué en France",
+        "s": "Pensé à Dijon, fabriqué à Romans-sur-Isère, 75% de matières françaises."
+      }
+    ]
+  },
+  "bento": {
+    "title": "Pourquoi 2nde Chance.",
+    "lead": "Une autre façon de s'habiller : responsable, unique, sans rien lâcher sur le style.",
+    "cells": [
+      {
+        "cls": "c-a dark",
+        "kpi": "100%",
+        "title": "matières recyclées",
+        "text": "Nos tee-shirts et pièces sont faits de matières récupérées. Rien de neuf gaspillé."
+      },
+      {
+        "cls": "c-b",
+        "title": "Fabriqué en France",
+        "text": "Conçu à Dijon, fabriqué à Romans-sur-Isère."
+      },
+      {
+        "cls": "c-c",
+        "title": "Consigne solidaire",
+        "text": "Rapportez vos paires, jusqu'à 25€ crédités."
+      },
+      {
+        "cls": "c-d",
+        "title": "Pièces uniques",
+        "text": "Aucune pièce identique. La vôtre n'existe qu'une fois."
+      },
+      {
+        "cls": "c-e",
+        "title": "Déjà repérés",
+        "text": "Présents aux Galeries Lafayette Dijon."
+      }
+    ]
+  },
+  "steps": {
+    "title": "Vous portez, on recycle,\nvous êtes crédité.",
+    "lead": "Le cercle vertueux de 2nde Chance, en trois temps.",
+    "items": [
+      {
+        "num": "ÉTAPE 01",
+        "title": "Vous portez",
+        "text": "Une pièce unique, faite de matières recyclées, fabriquée en France."
+      },
+      {
+        "num": "ÉTAPE 02",
+        "title": "Vous rapportez",
+        "text": "Vos paires usées ou inutilisées, en boutique ou par envoi."
+      },
+      {
+        "num": "ÉTAPE 03",
+        "title": "Vous êtes crédité",
+        "text": "Jusqu'à 25€ de crédit. On réinjecte près de la moitié de la matière dans du neuf."
+      }
+    ]
+  },
+  "quotesHead": {
+    "stars": "",
+    "rating": "Ils en parlent",
+    "count": ""
+  },
+  "quotes": [
+    {
+      "text": "À Dijon, 2nde Chance lance sa ligne de vêtements 100% fabriqués à partir du recyclage.",
+      "em": "100% fabriqués à partir du recyclage",
+      "author": "France Bleu",
+      "role": "Presse"
+    },
+    {
+      "text": "La marque de sneakers dijonnaise 2nde Chance lance ses baskets consignées.",
+      "em": "baskets consignées",
+      "author": "Dijon Beaune Mag",
+      "role": "Presse locale"
+    },
+    {
+      "text": "2nde Chance donne une seconde vie à vos vêtements.",
+      "em": "une seconde vie",
+      "author": "Loubaska",
+      "role": "Presse locale"
+    }
+  ],
+  "guarantee": {
+    "eyebrow": "L'engagement 2nde Chance",
+    "title": "Rien ne se perd.\nTout se transforme.",
+    "text": "Vos paires usées ne finissent pas à la poubelle. Rapportez-les, on vous crédite jusqu'à 25€, et la matière repart dans une nouvelle pièce.",
+    "points": [
+      {
+        "b": "25€",
+        "s": "crédités par retour"
+      },
+      {
+        "b": "~50%",
+        "s": "de matière réinjectée"
+      },
+      {
+        "b": "0",
+        "s": "déchet gaspillé"
+      }
+    ]
+  },
+  "faq": {
+    "title": "Vos questions,\nnos réponses.",
+    "items": [
+      {
+        "q": "Vos produits sont-ils vraiment recyclés ?",
+        "a": "Oui. Nos tee-shirts sont faits à 100% de matières recyclées, et nos pièces Urbana de denim et chutes de tissu récupérés près de Dole."
+      },
+      {
+        "q": "Où sont-ils fabriqués ?",
+        "a": "Pensés à Dijon, fabriqués à Romans-sur-Isère, avec 75% de matières françaises."
+      },
+      {
+        "q": "Comment fonctionne la consigne ?",
+        "a": "Rapportez vos paires usées ou inutilisées : vous recevez jusqu'à 25€ de crédit, et on réinjecte près de la moitié de la matière dans de nouveaux produits."
+      },
+      {
+        "q": "Les pièces sont-elles vraiment uniques ?",
+        "a": "Oui. Chaque pièce Urbana est faite de chutes différentes, aucune n'est identique."
+      },
+      {
+        "q": "Où vous trouver ?",
+        "a": "En ligne, et ponctuellement en boutique (nous avons notamment été présents aux Galeries Lafayette Dijon)."
+      }
+    ]
+  },
+  "cta": {
+    "title": "Portez le changement<em>.</em>",
+    "product": "Sneakers écoresponsables",
+    "price": "230€",
+    "oldPrice": "",
+    "note": "Consigne de 15€ incluse, rendue à la reprise. Fabriqué en France, matières recyclées, pièce éco-conçue.",
+    "micro": "Consigne solidaire · Fabriqué en France · Matières recyclées",
+    "button": {
+      "label": "Précommander",
+      "href": "#"
+    }
+  },
+  "footer": {
+    "reassure": [
+      "Fabriqué en France",
+      "Matières 100% recyclées",
+      "Consigne jusqu'à 25€",
+      "Pièces uniques"
+    ],
+    "cols": [
+      {
+        "title": "Boutique",
+        "links": [
+          {
+            "label": "Sneakers",
+            "href": "#"
+          },
+          {
+            "label": "Collection Urbana",
+            "href": "#"
+          },
+          {
+            "label": "Tee-shirts",
+            "href": "#"
+          }
+        ]
+      },
+      {
+        "title": "La marque",
+        "links": [
+          {
+            "label": "Notre histoire",
+            "href": "#"
+          },
+          {
+            "label": "L'upcycling",
+            "href": "#steps"
+          },
+          {
+            "label": "La consigne",
+            "href": "#guarantee"
+          }
+        ]
+      },
+      {
+        "title": "Suivre",
+        "links": [
+          {
+            "label": "Instagram",
+            "href": "https://www.instagram.com/2ndechance/"
+          },
+          {
+            "label": "Facebook",
+            "href": "https://www.facebook.com/2ndechance.sneakers/"
+          }
+        ]
+      }
+    ],
+    "fine": "2nde Chance · Dijon · Fabriqué en France"
+  }
+};
+/* ---------- monogramme SVG (décoratif) ---------- */
+function mark(size){const id='mg'+size;return `<svg class="m" width="${size}" height="${size}" viewBox="0 0 40 40" aria-hidden="true"><defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="var(--accent)"/><stop offset="1" stop-color="var(--accent-2)"/></linearGradient></defs><path fill="url(#${id})" d="M20 3 C28 12 31 19 31 25 C31 33 26 38 20 39 C14 38 9 33 9 25 C9 19 12 12 20 3 Z M20 12 C16 19 14 24 14 28 C14 33 16 36 20 37 C24 36 26 33 26 28 C26 24 24 19 20 12 Z"/></svg>`}
+function glyph(){return `<svg class="glyph" viewBox="0 0 120 120" aria-hidden="true"><defs><linearGradient id="gg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="var(--accent)"/><stop offset="1" stop-color="var(--accent-2)"/></linearGradient></defs><path fill="url(#gg)" d="M60 8 C82 34 92 54 92 70 C92 92 78 108 60 112 C42 108 28 92 28 70 C28 54 38 34 60 8 Z M60 32 C50 50 46 62 46 72 C46 84 51 92 60 94 C69 92 74 84 74 72 C74 62 70 50 60 32 Z"/></svg>`}
+
+/* ---------- THEME ---------- */
+(function applyTheme(){const t=CONFIG.theme,r=document.documentElement.style;
+  r.setProperty('--ink',t.ink);r.setProperty('--paper',t.paper);r.setProperty('--paper-2',t.paper2);
+  r.setProperty('--accent',t.accent);r.setProperty('--accent-2',t.accent2);r.setProperty('--accent-2-ink',t.accent2Ink||t.accent2);r.setProperty('--accent-3',t.accent3||t.accent2);r.setProperty('--hero-bg',t.heroBg);})();
+
+/* ---------- RENDER ---------- */
+const c=CONFIG, B=c.brand.name, A=a=>a||[];
+const heroVisual = c.hero.videoUrl
+  ? `<div class="hv-clip"><video autoplay muted loop playsinline src="${c.hero.videoUrl}"></video></div>`
+  : `<div class="hv-clip"><canvas id="sig" aria-hidden="true"></canvas><div class="orb" aria-hidden="true"><div class="ring"></div><div class="blob"></div></div></div>`;
+const scMedia = c.showcase.imageUrl
+  ? `<img src="${c.showcase.imageUrl}" alt="${c.showcase.alt||''}">`
+  : `<div class="sc-frame"><span class="mono">Visuel produit</span>${glyph()}</div>`;
+
+document.getElementById('app').innerHTML = `
+<nav class="nav dark" id="nav">
+  <div class="brand">${c.brand.accentMark?mark(22):''}<span>${B}</span></div>
+  <div class="nav-links">${A(c.nav.links).map(l=>`<a href="${l.href}">${l.label}</a>`).join('')}</div>
+  <a class="nav-cta" href="${c.nav.cta.href}">${c.nav.cta.label}</a>
+  <div class="nav-burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" role="button" tabindex="0"><span></span><span></span></div>
+</nav>
+<div class="mobile-menu" id="mmenu">
+  ${A(c.nav.links).map(l=>`<a href="${l.href}" data-close>${l.label}</a>`).join('')}
+  <a class="mm-cta" href="${c.nav.cta.href}" data-close>${c.nav.cta.label}</a>
+</div>
+
+<header class="hero">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="hero-grid">
+    <div>
+      <div class="eyebrow mono"><span>${c.hero.eyebrow}</span></div>
+      <h1>${A(c.hero.titleLines).map(l=>`<span class="ln"><i>${l}</i></span>`).join('')}</h1>
+      <p class="hero-sub">${c.hero.sub}</p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="${c.hero.primary.href}">${c.hero.primary.label}</a>
+        <a class="btn-ghost" href="${c.hero.secondary.href}">${c.hero.secondary.label}</a>
+      </div>
+      <div class="hero-trust">
+        ${A(c.hero.stats).map((s,i)=>`${i?'<div class="sep"></div>':''}<div class="stat"><b>${s.v}</b><span>${s.k}</span></div>`).join('')}
+      </div>
+    </div>
+    <div class="hero-visual" id="hv">
+      ${heroVisual}
+      ${A(c.hero.tags).map((t,i)=>`<div class="tag t${i+1}" data-par="${i?0.5:0.8}"><span class="k">${t.k}</span><span class="v">${t.v}</span></div>`).join('')}
+    </div>
+  </div>
+</header>
+
+<div class="marquee" aria-hidden="true"><div class="marquee-track">
+  ${A(c.marquee).concat(A(c.marquee)).map(m=>`<span class="mq-item"><b>${m.b}</b> ${m.t}<span class="dot"></span></span>`).join('')}
+</div></div>
+
+<section class="showcase" id="showcase">
+  <div class="shell">
+    <div class="sc-media" data-left>
+      ${scMedia}
+      <div class="badge"><b>${c.showcase.badge.b}</b><span>${c.showcase.badge.s}</span></div>
+    </div>
+    <div class="sc-copy">
+      <span class="mono" data-rise>${c.showcase.eyebrow}</span>
+      <h2 data-rise data-d="1">${c.showcase.title.replace(/\n/g,'<br>')}</h2>
+      <p class="lead" data-rise data-d="2">${c.showcase.lead}</p>
+      <div class="points">
+        ${A(c.showcase.points).map((p,i)=>`<div class="point" data-rise data-d="${i+1}"><span class="n">0${i+1}</span><div><b>${p.b}</b><span>${p.s}</span></div></div>`).join('')}
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bento" id="bento">
+  <div class="head"><h2 data-left>${c.bento.title}</h2><p data-right>${c.bento.lead}</p></div>
+  <div class="bento-grid">
+    ${A(c.bento.cells).map((cell,i)=>`<div class="cell ${cell.cls}" data-rise data-d="${(i%3)+1}"><div class="glow"></div>${cell.kpi?`<div class="kpi">${cell.kpi}</div>`:''}<h3>${cell.title}</h3><p>${cell.text}</p></div>`).join('')}
+  </div>
+</section>
+
+<section class="steps" id="steps">
+  <div class="head"><h2 data-left>${c.steps.title.replace(/\n/g,'<br>')}</h2><p data-right>${c.steps.lead}</p></div>
+  <div class="steps-scroll">
+    ${A(c.steps.items).map((s,i)=>`<article class="step"><div><span class="num">${s.num}</span><div class="art" aria-hidden="true"><div class="g"></div><div class="idx">0${i+1}</div></div></div><div><h3>${s.title}</h3><p>${s.text}</p></div></article>`).join('')}
+  </div>
+</section>
+
+<section class="quote" id="quote">
+  <div class="bg" aria-hidden="true"></div>
+  <div class="shell">
+    <div class="mark" aria-hidden="true">“</div>
+    <div>
+      ${c.quotesHead?`<div class="qhead" data-rise><span class="stars">${c.quotesHead.stars}</span> <b>${c.quotesHead.rating}</b> ${c.quotesHead.count}</div>`:''}
+      <div class="qcar" role="group" aria-roledescription="carrousel" aria-label="Avis clients" data-rise>
+        ${A(c.quotes).map((q,i)=>`<figure class="qslide${i===0?' on':''}" aria-hidden="${i!==0}"><blockquote>${q.em&&q.text.includes(q.em)?q.text.replace(q.em,`<em>${q.em}</em>`):q.text}</blockquote><figcaption class="cite"><div class="av" aria-hidden="true">${(q.author||B)[0]}</div><div><b>${q.author}</b><span>${q.role}</span></div></figcaption></figure>`).join('')}
+        <div class="qdots">${A(c.quotes).map((q,i)=>`<button class="qdot${i===0?' on':''}" data-i="${i}" aria-current="${i===0}" aria-label="Avis ${i+1}"></button>`).join('')}</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="guarantee" id="guarantee">
+  <div class="shell">
+    <div class="g-copy" data-left>
+      <span class="mono">${c.guarantee.eyebrow}</span>
+      <h2>${c.guarantee.title.replace(/\n/g,'<br>')}</h2>
+      <p>${c.guarantee.text}</p>
+    </div>
+    <div class="g-pillars" data-right>
+      ${A(c.guarantee.points).map(p=>`<div class="g-pill"><b>${p.b}</b><span>${p.s}</span></div>`).join('')}
+    </div>
+  </div>
+</section>
+
+<section class="faq" id="faq">
+  <div class="shell faq-shell">
+    <h2 data-left>${c.faq.title.replace(/\n/g,'<br>')}</h2>
+    <div class="faq-list" data-right>
+      ${A(c.faq.items).map(f=>`<details class="faq-item"><summary>${f.q}<span class="faq-ic" aria-hidden="true"></span></summary><div class="faq-a">${f.a}</div></details>`).join('')}
+    </div>
+  </div>
+</section>
+
+<section class="cta" id="cta">
+  <div class="shell">
+    <h2 data-left>${c.cta.title}</h2>
+    <div class="cta-side" data-right>
+      <div class="price"><b>${c.cta.price}</b>${c.cta.oldPrice?`<span class="old">${c.cta.oldPrice}</span>`:''}</div>
+      <p>${c.cta.note}</p>
+      <a class="btn-primary" href="${c.cta.button.href}">${c.cta.button.label}</a>
+      ${c.cta.micro?`<span class="cta-micro">${c.cta.micro}</span>`:''}
+    </div>
+  </div>
+</section>
+
+<div class="reassure">
+  <div class="shell">${A(c.footer.reassure).map(x=>`<span>${x}</span>`).join('')}</div>
+</div>
+<footer>
+  <div class="shell">
+    <div class="brand">${c.brand.accentMark?mark(24):''}<span>${B}</span></div>
+    <div class="cols">
+      ${A(c.footer.cols).map(col=>`<div class="col"><b>${col.title}</b>${A(col.links).map(l=>`<a href="${l.href}">${l.label}</a>`).join('')}</div>`).join('')}
+    </div>
+  </div>
+  <div class="fine"><span>© 2026 ${B}</span><span>${c.footer.fine}</span></div>
+</footer>
+`;
+
+/* ---------- ETAT GLOBAL ---------- */
+const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+const coarse=matchMedia('(pointer:coarse)').matches;
+
+/* ---------- REVEALS ---------- */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.16});
+document.querySelectorAll('[data-rise],[data-left],[data-right]').forEach(el=>io.observe(el));
+
+/* ---------- MENU MOBILE (inert quand fermé) ---------- */
+const burger=document.getElementById('burger'),mmenu=document.getElementById('mmenu');
+mmenu.inert=true;
+const setMenu=o=>{mmenu.classList.toggle('open',o);burger.classList.toggle('x',o);mmenu.inert=!o;burger.setAttribute('aria-expanded',o);document.body.style.overflow=o?'hidden':'';};
+burger.addEventListener('click',()=>setMenu(!mmenu.classList.contains('open')));
+burger.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();setMenu(!mmenu.classList.contains('open'));}});
+mmenu.querySelectorAll('[data-close]').forEach(a=>a.addEventListener('click',()=>setMenu(false)));
+
+/* ---------- COMPTEURS animés (stats hero) ---------- */
+function animateCount(el){const raw=el.textContent.trim();const m=raw.match(/^([^\d]*)(\d[\d\s.,]*)(.*)$/);if(!m)return;const pre=m[1],suf=m[3];const target=parseFloat(m[2].replace(/\s/g,'').replace(',','.'));const dec=(m[2].includes(',')||m[2].includes('.'))?1:0;let s=null;const dur=1100;
+  function step(ts){if(!s)s=ts;const p=Math.min(1,(ts-s)/dur);const e=1-Math.pow(1-p,3);const v=(target*e).toFixed(dec).replace('.',',');el.textContent=pre+v+suf;if(p<1)requestAnimationFrame(step)}requestAnimationFrame(step);}
+if(!reduce){const statObs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){animateCount(e.target);statObs.unobserve(e.target)}}),{threshold:.6});
+document.querySelectorAll('.hero-trust .stat b').forEach(el=>statObs.observe(el));}
+
+/* ---------- MAGNÉTISME boutons + TILT cartes (souris uniquement) ---------- */
+if(!coarse){
+  document.querySelectorAll('.btn-primary').forEach(btn=>{
+    btn.addEventListener('mousemove',e=>{const r=btn.getBoundingClientRect();const x=(e.clientX-r.left-r.width/2)/r.width,y=(e.clientY-r.top-r.height/2)/r.height;btn.style.transform=`translate(${x*10}px,${y*8}px)`});
+    btn.addEventListener('mouseleave',()=>btn.style.transform='');
+  });
+  document.querySelectorAll('.cell,.step').forEach(card=>{
+    card.addEventListener('mousemove',e=>{const r=card.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;card.style.transition='transform .12s var(--ease)';card.style.transform=`perspective(760px) rotateX(${(-y*5).toFixed(2)}deg) rotateY(${(x*6).toFixed(2)}deg) translateY(-6px)`});
+    card.addEventListener('mouseleave',()=>{card.style.transition='';card.style.transform='';});
+  });
+}
+
+/* ---------- CARROUSEL AVIS ---------- */
+const qslides=[...document.querySelectorAll('.qslide')],qdots=[...document.querySelectorAll('.qdot')];
+if(qslides.length){
+  const qcar=document.querySelector('.qcar');
+  const fit=()=>{let h=0;qslides.forEach(s=>{h=Math.max(h,s.offsetHeight)});if(h)qcar.style.height=h+'px';};
+  fit();new ResizeObserver(fit).observe(qcar);addEventListener('resize',fit);
+  if(qslides.length>1){
+    let qi=0,qtimer;
+    const setA=n=>{qi=(n+qslides.length)%qslides.length;qslides.forEach((s,k)=>{const on=k===qi;s.classList.toggle('on',on);s.setAttribute('aria-hidden',String(!on));});qdots.forEach((d,k)=>{const on=k===qi;d.classList.toggle('on',on);d.setAttribute('aria-current',String(on));});};
+    const play=()=>{clearInterval(qtimer);if(!reduce)qtimer=setInterval(()=>setA(qi+1),5000);};
+    qdots.forEach(d=>d.addEventListener('click',()=>{setA(+d.dataset.i);play();}));
+    qcar.addEventListener('mouseenter',()=>clearInterval(qtimer));
+    qcar.addEventListener('mouseleave',play);
+    qcar.addEventListener('focusin',()=>clearInterval(qtimer));
+    qcar.addEventListener('focusout',play);
+    play();
+  }
+}
+
+/* ---------- SCROLL (batché en rAF) : progression + nav + parallax ---------- */
+const nav=document.getElementById('nav'),hero=document.querySelector('.hero'),ptop=document.getElementById('ptop'),hv=document.getElementById('hv'),tags=[...document.querySelectorAll('.tag')];
+let heroH=hero.offsetHeight,lastY=0,ticking=false;
+addEventListener('resize',()=>{heroH=hero.offsetHeight;},{passive:true});
+function onScroll(){
+  const d=document.documentElement,y=scrollY;
+  ptop.style.width=(d.scrollTop/((d.scrollHeight-d.clientHeight)||1)*100)+'%';
+  nav.style.transform=`translateX(-50%) translateY(${y>lastY&&y>240?'-140%':'0'})`;
+  nav.classList.toggle('dark',y<heroH-90);
+  if(!reduce&&y<900){hv.style.transform=`translateY(${(y*-0.06).toFixed(1)}px)`;tags.forEach(t=>t.style.transform=`translateY(${(y*(t.dataset.par*0.12)).toFixed(1)}px)`);}
+  lastY=y;ticking=false;
+}
+addEventListener('scroll',()=>{if(!ticking){ticking=true;requestAnimationFrame(onScroll);}},{passive:true});
+if(!reduce){addEventListener('mousemove',e=>{const dx=(e.clientX/innerWidth-.5),dy=(e.clientY/innerHeight-.5);tags.forEach(t=>{const p=parseFloat(t.dataset.par);t.style.translate=`${(dx*p*22).toFixed(1)}px ${(dy*p*22).toFixed(1)}px`});window.__mx=dx;window.__my=dy;},{passive:true});}
+
+/* ---------- SIGNATURE 3D : WebGL raymarch maison (pausé hors écran) ---------- */
+function hexToRGB(h){h=(h||'#000000').replace('#','');return[parseInt(h.slice(0,2),16)/255,parseInt(h.slice(2,4),16)/255,parseInt(h.slice(4,6),16)/255];}
+function initHero3D(){
+  if(CONFIG.hero.videoUrl)return;
+  const canvas=document.getElementById('sig');if(!canvas)return;
+  const gl=canvas.getContext('webgl',{antialias:false,alpha:false,premultipliedAlpha:false,powerPreference:'low-power'})||canvas.getContext('experimental-webgl');
+  if(!gl)return;
+  const CA=hexToRGB(CONFIG.theme.accent),CB=hexToRGB(CONFIG.theme.accent2),CC=hexToRGB(CONFIG.theme.accent3);
+  const vs=`attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}`;
+  const fs=`precision highp float;
+  uniform vec2 R;uniform float T;uniform vec2 M;uniform vec3 CA,CB,CC;
+  mat2 rot(float a){float c=cos(a),s=sin(a);return mat2(c,-s,s,c);}
+  float smin(float a,float b,float k){float h=clamp(.5+.5*(b-a)/k,0.,1.);return mix(b,a,h)-k*h*(1.-h);}
+  float map(vec3 p){float t=T*.6;p.xz*=rot(t*.35);p.xy*=rot(t*.22);
+    float d=length(p-vec3(sin(t)*.42,cos(t*1.1)*.36,0.))-.66;
+    d=smin(d,length(p-vec3(cos(t*.9)*.55,sin(t*1.25)*.46,sin(t)*.34))-.5,.55);
+    d=smin(d,length(p-vec3(sin(t*1.4)*.5,-cos(t)*.5,cos(t*.8)*.34))-.46,.55);
+    d=smin(d,length(p+vec3(sin(t*.7)*.4,sin(t*1.6)*.3,cos(t*1.2)*.4))-.4,.5);return d;}
+  vec3 nrm(vec3 p){vec2 e=vec2(.0012,0.);return normalize(vec3(map(p+e.xyy)-map(p-e.xyy),map(p+e.yxy)-map(p-e.yxy),map(p+e.yyx)-map(p-e.yyx)));}
+  vec3 pal(float t){return CA+CB*cos(6.2831*(t+vec3(0.,.18,.42)))+CC*.35*sin(6.2831*(t*1.3+.2));}
+  void main(){vec2 uv=(gl_FragCoord.xy*2.-R)/R.y;
+    vec3 ro=vec3(0.,0.,3.15);vec3 rd=normalize(vec3(uv,-1.9));
+    float mx=(M.x)*.6,my=(-M.y)*.45;ro.yz*=rot(my);rd.yz*=rot(my);ro.xz*=rot(mx);rd.xz*=rot(mx);
+    float t=0.,dd;vec3 p;bool hit=false;
+    for(int i=0;i<70;i++){p=ro+rd*t;dd=map(p);if(dd<.001){hit=true;break;}t+=dd*.9;if(t>7.)break;}
+    vec3 col;
+    if(hit){vec3 n=nrm(p);vec3 v=-rd;float fres=pow(1.-max(dot(n,v),0.),2.4);
+      vec3 L1=normalize(vec3(.6,.8,.5)),L2=normalize(vec3(-.7,.3,.6));
+      float diff=max(dot(n,L1),0.)*.7+max(dot(n,L2),0.)*.4;
+      vec3 base=pal(.5+n.y*.35+n.x*.2+T*.03);
+      vec3 spec1=CB*pow(max(dot(reflect(-L1,n),v),0.),40.);
+      vec3 spec2=vec3(1.)*pow(max(dot(reflect(-L2,n),v),0.),80.)*.6;
+      col=base*(.35+diff)+pal(fres+.3)*fres*1.15+spec1+spec2;col=mix(col,pal(.6+fres),fres*.5);
+    }else{float g=length(uv*vec2(.6,1.));col=mix(CA*.10,vec3(.02,.02,.05),smoothstep(.0,1.4,g));col+=CB*.05*exp(-3.*length(uv-vec2(.5,-.2)));}
+    col=col/(col+.85);col=pow(col,vec3(.85));gl_FragColor=vec4(col,1.);}`;
+  function sh(ty,s){const o=gl.createShader(ty);gl.shaderSource(o,s);gl.compileShader(o);if(!gl.getShaderParameter(o,gl.COMPILE_STATUS)){console.warn('[3d]',gl.getShaderInfoLog(o));}return o;}
+  const prog=gl.createProgram();gl.attachShader(prog,sh(gl.VERTEX_SHADER,vs));gl.attachShader(prog,sh(gl.FRAGMENT_SHADER,fs));gl.linkProgram(prog);
+  if(!gl.getProgramParameter(prog,gl.LINK_STATUS)){console.warn('[3d] link fail');return;}
+  gl.useProgram(prog);
+  const buf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buf);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
+  const loc=gl.getAttribLocation(prog,'p');gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
+  const uR=gl.getUniformLocation(prog,'R'),uT=gl.getUniformLocation(prog,'T'),uM=gl.getUniformLocation(prog,'M');
+  gl.uniform3fv(gl.getUniformLocation(prog,'CA'),CA);gl.uniform3fv(gl.getUniformLocation(prog,'CB'),CB);gl.uniform3fv(gl.getUniformLocation(prog,'CC'),CC);
+  const dpr=Math.min(devicePixelRatio||1,1.5);
+  function size(){const r=canvas.getBoundingClientRect();canvas.width=Math.max(1,r.width*dpr);canvas.height=Math.max(1,r.height*dpr);gl.viewport(0,0,canvas.width,canvas.height);}
+  size();new ResizeObserver(size).observe(canvas);
+  document.getElementById('hv').classList.add('live');
+  let mx=0,my=0,raf=0,inView=true,clock=0,last=performance.now();const spd=reduce?0.15:1;
+  function frame(now){const dt=now-last;last=now;clock+=dt*spd;
+    if(!reduce){const tx=window.__mx||0,ty=window.__my||0;mx+=(tx-mx)*.06;my+=(ty-my)*.06;}
+    gl.uniform2f(uR,canvas.width,canvas.height);gl.uniform1f(uT,clock/1000);gl.uniform2f(uM,mx,my);
+    gl.drawArrays(gl.TRIANGLES,0,3);raf=0;
+    if(!reduce&&inView&&!document.hidden)raf=requestAnimationFrame(frame);}
+  const run=()=>{if(!raf){last=performance.now();raf=requestAnimationFrame(frame);}};
+  const halt=()=>{if(raf){cancelAnimationFrame(raf);raf=0;}};
+  new IntersectionObserver(e=>{inView=e[0].isIntersecting;inView?run():halt();},{threshold:0}).observe(canvas);
+  document.addEventListener('visibilitychange',()=>document.hidden?halt():(inView&&run()));
+  run();
+}
+initHero3D();
+</script>
+</body>
+</html>
