@@ -414,6 +414,9 @@ document.getElementById('app').innerHTML = `
 </footer>
 `;
 
+/* ---------- ETAT GLOBAL ---------- */
+const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+
 /* ---------- REVEALS ---------- */
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.16});
 document.querySelectorAll('[data-rise],[data-left],[data-right]').forEach(el=>io.observe(el));
@@ -428,8 +431,8 @@ mmenu.querySelectorAll('[data-close]').forEach(a=>a.addEventListener('click',()=
 /* ---------- COMPTEURS animés (stats hero) ---------- */
 function animateCount(el){const raw=el.textContent.trim();const m=raw.match(/^([^\d]*)(\d[\d\s.,]*)(.*)$/);if(!m)return;const pre=m[1],suf=m[3];const target=parseFloat(m[2].replace(/\s/g,'').replace(',','.'));const dec=(m[2].includes(',')||m[2].includes('.'))?1:0;let s=null;const dur=1100;
   function step(ts){if(!s)s=ts;const p=Math.min(1,(ts-s)/dur);const e=1-Math.pow(1-p,3);const v=(target*e).toFixed(dec).replace('.',',');el.textContent=pre+v+suf;if(p<1)requestAnimationFrame(step)}requestAnimationFrame(step);}
-const statObs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){animateCount(e.target);statObs.unobserve(e.target)}}),{threshold:.6});
-document.querySelectorAll('.hero-trust .stat b').forEach(el=>statObs.observe(el));
+if(!reduce){const statObs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){animateCount(e.target);statObs.unobserve(e.target)}}),{threshold:.6});
+document.querySelectorAll('.hero-trust .stat b').forEach(el=>statObs.observe(el));}
 
 /* ---------- MAGNÉTISME boutons ---------- */
 if(!matchMedia('(pointer:coarse)').matches){
@@ -448,7 +451,6 @@ addEventListener('scroll',()=>{const y=scrollY;
 },{passive:true});
 
 /* ---------- PARALLAX hero (scroll + souris) ---------- */
-const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
 const hv=document.getElementById('hv'),tags=[...document.querySelectorAll('.tag')];
 if(!reduce){
   addEventListener('scroll',()=>{const y=scrollY;if(y<900){hv.style.transform=`translateY(${y*-0.06}px)`;tags.forEach(t=>{t.style.transform=`translateY(${y*(t.dataset.par*0.12)}px)`})}},{passive:true});
@@ -462,7 +464,7 @@ if(!reduce){
 /* Zéro dépendance externe. Fallback = orbe CSS animée si WebGL absent. */
 function hexToRGB(h){h=h.replace('#','');return[parseInt(h.slice(0,2),16)/255,parseInt(h.slice(2,4),16)/255,parseInt(h.slice(4,6),16)/255];}
 function initHero3D(){
-  if(reduce||CONFIG.hero.videoUrl)return;
+  if(CONFIG.hero.videoUrl)return;                 // le blob 3D s'affiche même en reduced-motion (juste plus lent)
   const canvas=document.getElementById('sig');if(!canvas)return;
   const gl=canvas.getContext('webgl',{antialias:true,alpha:true,premultipliedAlpha:false})||canvas.getContext('experimental-webgl');
   if(!gl){return;} // fallback orbe reste visible
@@ -521,10 +523,10 @@ function initHero3D(){
   function size(){const r=canvas.getBoundingClientRect();canvas.width=Math.max(1,r.width*dpr);canvas.height=Math.max(1,r.height*dpr);gl.viewport(0,0,canvas.width,canvas.height);}
   size();new ResizeObserver(size).observe(canvas);
   document.getElementById('hv').classList.add('live');
-  let mx=0,my=0,t0=performance.now();
+  let mx=0,my=0,t0=performance.now();const spd=reduce?0.15:1;
   function frame(now){
-    const tx=window.__mx||0,ty=window.__my||0;mx+=(tx-mx)*.06;my+=(ty-my)*.06;
-    gl.uniform2f(uR,canvas.width,canvas.height);gl.uniform1f(uT,(now-t0)/1000);gl.uniform2f(uM,mx,my);
+    if(!reduce){const tx=window.__mx||0,ty=window.__my||0;mx+=(tx-mx)*.06;my+=(ty-my)*.06;}
+    gl.uniform2f(uR,canvas.width,canvas.height);gl.uniform1f(uT,(now-t0)/1000*spd);gl.uniform2f(uM,mx,my);
     gl.drawArrays(gl.TRIANGLES,0,3);requestAnimationFrame(frame);
   }
   requestAnimationFrame(frame);
