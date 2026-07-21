@@ -66,8 +66,24 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:60;opa
 .hero-sub{font-size:1.12rem;max-width:32ch;color:rgba(244,243,238,.76);margin-bottom:38px;opacity:0;animation:fade 1s var(--ease) .6s forwards}
 .hero-actions{display:flex;gap:16px;align-items:center;flex-wrap:wrap;opacity:0;animation:fade 1s var(--ease) .72s forwards}
 @keyframes fade{to{opacity:1}}
-.btn-primary{padding:15px 28px;border-radius:13px;background:linear-gradient(120deg,var(--accent),var(--accent-3));color:#fff;font-weight:600;font-size:.98rem;transition:transform .3s var(--ease),box-shadow .45s var(--ease);box-shadow:0 14px 40px -12px color-mix(in srgb,var(--accent) 80%,transparent);will-change:transform}
+.btn-primary{padding:15px 28px;border-radius:13px;background:linear-gradient(120deg,var(--accent),var(--accent-3),var(--accent-2),var(--accent));background-size:280% 100%;color:#fff;font-weight:600;font-size:.98rem;transition:transform .3s var(--ease),box-shadow .45s var(--ease);box-shadow:0 14px 40px -12px color-mix(in srgb,var(--accent) 80%,transparent);will-change:transform;animation:btnsheen 8s linear infinite}
+@keyframes btnsheen{to{background-position:280% 0}}
 .btn-primary:hover{box-shadow:0 24px 54px -14px color-mix(in srgb,var(--accent-3) 75%,transparent)}
+/* barre de progression scroll */
+.ptop{position:fixed;top:0;left:0;height:3px;width:0;z-index:50;background:linear-gradient(90deg,var(--accent),var(--accent-2),var(--accent-3));box-shadow:0 0 12px color-mix(in srgb,var(--accent) 60%,transparent);transition:width .08s linear}
+/* carrousel avis */
+.qcar{position:relative;min-height:220px}
+.qslide{position:absolute;inset:0;opacity:0;transform:translateY(18px);transition:opacity .6s var(--ease),transform .6s var(--ease);pointer-events:none}
+.qslide.on{opacity:1;transform:none;pointer-events:auto;z-index:2}
+.qslide blockquote{font-family:"Fraunces";font-weight:300;font-size:clamp(1.7rem,3.3vw,3rem);line-height:1.16}
+.qslide blockquote em{font-style:italic;color:var(--accent)}
+.qslide .cite{margin-top:28px;display:flex;align-items:center;gap:14px}
+.qslide .cite .av{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;font-family:"Fraunces";background:linear-gradient(135deg,var(--accent),var(--accent-3));color:#fff;font-size:1.1rem}
+.qslide .cite b{display:block;font-family:"Instrument Sans";font-weight:600;font-size:.95rem}
+.qslide .cite span{font-size:.82rem;opacity:.7}
+.qdots{position:absolute;bottom:-44px;left:0;display:flex;gap:9px}
+.qdot{width:9px;height:9px;border-radius:50%;border:none;background:rgba(255,255,255,.25);cursor:pointer;transition:background .3s,width .3s;padding:0}
+.qdot.on{background:var(--accent);width:26px;border-radius:5px}
 .btn-ghost{font-size:.98rem;color:var(--paper);display:flex;align-items:center;gap:9px;padding:12px 4px;position:relative}
 .btn-ghost::after{content:"";position:absolute;left:4px;bottom:6px;width:calc(100% - 8px);height:1px;background:var(--paper);transform:scaleX(.28);transform-origin:left;transition:transform .5s var(--ease)}
 .btn-ghost:hover::after{transform:scaleX(1)}
@@ -222,13 +238,18 @@ footer .fine{width:var(--shell);margin:44px auto 0;padding-top:22px;border-top:1
   .nav .nav-cta{display:none}
 }
 @media(prefers-reduced-motion:reduce){
-  *{animation:none!important;scroll-behavior:auto!important}
-  [data-rise],[data-left],[data-right]{opacity:1!important;transform:none!important}
-  .eyebrow span,.hero h1 .ln i,.hero-sub,.hero-actions,.hero-trust,.hero-visual{opacity:1!important;transform:none!important;animation:none!important}
+  /* mouvement ambiant doux conservé (marquee lent, blob, fondus), grands déplacements retirés */
+  .eyebrow span,.hero h1 .ln i{transform:none!important;animation:none!important}
+  .hero-sub,.hero-actions,.hero-trust,.hero-visual{opacity:1!important;animation:none!important}
+  [data-rise],[data-left],[data-right]{transform:none!important}
+  .marquee-track{animation-duration:95s!important}
+  .hero-bg{animation:none!important}
+  .btn-primary{animation:none!important}
 }
 </style>
 </head>
 <body>
+<div class="ptop" id="ptop"></div>
 <div id="app"></div>
 
 <script>
@@ -285,7 +306,11 @@ const CONFIG = {
       {num:"ÉTAPE 03",title:"Mise en ligne",text:"Site livré, optimisé, prêt à convertir dès le premier jour."},
     ]
   },
-  quote:{ text:"Le premier site qui reflète enfin le niveau de nos produits. Les ventes ont suivi.", em:"Les ventes ont suivi.", author:"Sarah M.", role:"Fondatrice, marque cliente" },
+  quotes:[
+    { text:"Le premier site qui reflète enfin le niveau de nos produits. Les ventes ont suivi.", em:"Les ventes ont suivi.", author:"Sarah M.", role:"Fondatrice, marque cliente" },
+    { text:"En deux semaines, notre taux de conversion a doublé. Le site travaille à notre place.", em:"a doublé", author:"Thomas L.", role:"CEO, marque DTC" },
+    { text:"On nous prend enfin au sérieux. Nos clients nous croient bien plus gros qu'avant.", em:"au sérieux", author:"Inès B.", role:"Fondatrice, cosmétique" },
+  ],
   cta:{ title:"Donnez à votre marque le site<br>qu'elle<em> mérite</em>.", price:"Sur devis", oldPrice:"", note:"Démo personnalisée offerte. Livraison en 7 jours, satisfait ou refait.", button:{label:"Lancer ma démo",href:"#"} },
   footer:{ cols:[
       {title:"Produit",links:[{label:"Le site",href:"#"},{label:"Démos",href:"#"},{label:"Tarifs",href:"#"}]},
@@ -385,9 +410,9 @@ document.getElementById('app').innerHTML = `
   <div class="bg"></div>
   <div class="shell">
     <div class="mark">“</div>
-    <div>
-      <blockquote data-rise>${c.quote.em?c.quote.text.replace(c.quote.em,`<em>${c.quote.em}</em>`):c.quote.text}</blockquote>
-      <div class="cite" data-rise data-d="1"><div class="av">${(c.quote.author||B)[0]}</div><div><b>${c.quote.author}</b><span>${c.quote.role}</span></div></div>
+    <div class="qcar" data-rise>
+      ${c.quotes.map((q,i)=>`<figure class="qslide${i===0?' on':''}"><blockquote>${q.em?q.text.replace(q.em,`<em>${q.em}</em>`):q.text}</blockquote><figcaption class="cite"><div class="av">${(q.author||B)[0]}</div><div><b>${q.author}</b><span>${q.role}</span></div></figcaption></figure>`).join('')}
+      <div class="qdots">${c.quotes.map((q,i)=>`<button class="qdot${i===0?' on':''}" data-i="${i}" aria-label="Avis ${i+1}"></button>`).join('')}</div>
     </div>
   </div>
 </section>
@@ -440,6 +465,36 @@ if(!matchMedia('(pointer:coarse)').matches){
     btn.addEventListener('mousemove',e=>{const r=btn.getBoundingClientRect();const x=(e.clientX-r.left-r.width/2)/r.width,y=(e.clientY-r.top-r.height/2)/r.height;btn.style.transform=`translate(${x*10}px,${y*8}px)`});
     btn.addEventListener('mouseleave',()=>btn.style.transform='');
   });
+}
+
+/* ---------- BARRE DE PROGRESSION scroll ---------- */
+const ptop=document.getElementById('ptop');
+addEventListener('scroll',()=>{const h=document.documentElement;const p=h.scrollTop/((h.scrollHeight-h.clientHeight)||1);ptop.style.width=(p*100)+'%';},{passive:true});
+
+/* ---------- CARTES 3D (inclinaison vers le curseur) ---------- */
+if(!matchMedia('(pointer:coarse)').matches){
+  document.querySelectorAll('.cell,.step').forEach(card=>{
+    card.addEventListener('mousemove',e=>{const r=card.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;card.style.transform=`perspective(760px) rotateX(${-y*5}deg) rotateY(${x*6}deg) translateY(-6px)`});
+    card.addEventListener('mouseleave',()=>{card.style.transform='';});
+  });
+}
+
+/* ---------- CARROUSEL AVIS (auto + points) ---------- */
+const qslides=[...document.querySelectorAll('.qslide')],qdots=[...document.querySelectorAll('.qdot')];
+if(qslides.length){
+  const qcar=document.querySelector('.qcar');
+  const fit=()=>{let h=0;qslides.forEach(s=>{h=Math.max(h,s.offsetHeight)});if(h)qcar.style.height=h+'px';};
+  fit();new ResizeObserver(fit).observe(qcar);addEventListener('resize',fit);
+}
+if(qslides.length>1){
+  const qcar2=document.querySelector('.qcar');
+  let qi=0,qtimer;
+  const setA=n=>{qi=(n+qslides.length)%qslides.length;qslides.forEach((s,k)=>s.classList.toggle('on',k===qi));qdots.forEach((d,k)=>d.classList.toggle('on',k===qi));};
+  const play=()=>{clearInterval(qtimer);if(!reduce)qtimer=setInterval(()=>setA(qi+1),5000);};
+  qdots.forEach(d=>d.addEventListener('click',()=>{setA(+d.dataset.i);play();}));
+  qcar2.addEventListener('mouseenter',()=>clearInterval(qtimer));
+  qcar2.addEventListener('mouseleave',play);
+  play();
 }
 
 /* ---------- NAV : masque au scroll + thème clair après hero ---------- */
