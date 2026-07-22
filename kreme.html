@@ -842,7 +842,7 @@ const m3dPoster=c.hero.model3d&&c.hero.model3d.poster;
 const m3dFit = (c.hero.model3d && c.hero.model3d.fit) || 'product';
 const m3dCam = m3dFit==='wide'
   ? 'camera-orbit="22deg 80deg auto" field-of-view="16deg" min-field-of-view="8deg" max-field-of-view="40deg"'
-  : 'camera-orbit="0deg 74deg 4m" field-of-view="28deg" interaction-policy="allow-when-focused" disable-zoom';
+  : 'camera-orbit="0deg 74deg 4.2m" min-camera-orbit="auto auto 1m" max-camera-orbit="auto auto 14m" field-of-view="28deg" disable-zoom';
 const heroVisual = c.hero.model3d
   ? (HAS_WEBGL2
      ? `<div class="hv-clip m3d${m3dFit==='wide'?'':' prod'}"><model-viewer src="${c.hero.model3d.glb}"${m3dPoster?` poster="${c.hero.model3d.poster}"`:''} alt="${c.hero.model3d.alt||''}" camera-controls auto-rotate rotation-per-second="26deg" interaction-prompt="none" shadow-intensity="1.05" shadow-softness="1" exposure="1.05" environment-image="neutral" ${m3dCam} touch-action="pan-y"></model-viewer></div>`
