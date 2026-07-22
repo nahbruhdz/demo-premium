@@ -303,8 +303,55 @@ footer .fine{width:var(--shell);margin:44px auto 0;padding-top:22px;border-top:1
 [data-right].in{opacity:1;transform:none}
 [data-d="1"]{transition-delay:.08s}[data-d="2"]{transition-delay:.16s}[data-d="3"]{transition-delay:.24s}[data-d="4"]{transition-delay:.32s}
 
+/* ================= SIGNAL DATÉ (preuve de recherche réelle, 1.2) ================= */
+.signal{background:var(--paper-2);border-block:1px solid var(--line)}
+.signal .shell{display:grid;grid-template-columns:auto 1fr auto;gap:28px;align-items:center;padding:26px 0}
+.sig-when{display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+.sig-when .sig-tag{font-family:"Geist Mono";font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:#fff;background:var(--accent);padding:5px 10px;border-radius:7px;display:inline-flex;align-items:center;gap:7px}
+.sig-when .sig-tag::before{content:"";width:6px;height:6px;border-radius:50%;background:#fff;box-shadow:0 0 0 3px color-mix(in srgb,#fff 40%,transparent)}
+.sig-when .sig-date{font-family:"Geist Mono";font-size:.72rem;letter-spacing:.08em;color:rgba(7,7,15,.55)}
+.sig-body{font-family:"Fraunces";font-weight:300;font-size:clamp(1.05rem,1.7vw,1.42rem);line-height:1.32;color:var(--ink);max-width:64ch}
+.sig-body em{font-style:italic;color:var(--accent);font-weight:400}
+.sig-src{font-family:"Geist Mono";font-size:.68rem;letter-spacing:.06em;color:rgba(7,7,15,.5);text-align:right;white-space:nowrap}
+.sig-src b{display:block;font-size:.82rem;color:var(--accent-2-ink);letter-spacing:0}
+
+/* ================= OUTIL INTERACTIF MÉTIER (personnalisation, 1.3) ================= */
+.tool{padding:118px 0;background:var(--ink);color:var(--paper);position:relative;overflow:hidden}
+.tool .tbg{position:absolute;inset:0;z-index:0;pointer-events:none;background:radial-gradient(46% 62% at 84% 12%,color-mix(in srgb,var(--accent) 30%,transparent),transparent 60%),radial-gradient(40% 54% at 8% 92%,color-mix(in srgb,var(--accent-2) 24%,transparent),transparent 62%)}
+.tool .shell{position:relative;z-index:1;display:grid;grid-template-columns:.82fr 1.18fr;gap:56px;align-items:center}
+.tool-copy .mono{color:var(--accent-2);display:block;margin-bottom:18px}
+.tool-copy h2{font-size:clamp(2rem,3.6vw,3.2rem);margin-bottom:18px}
+.tool-copy .lead{color:rgba(245,244,251,.76);max-width:40ch}
+.tool-copy .t-note{margin-top:24px;font-size:.82rem;color:rgba(245,244,251,.5);max-width:38ch}
+.tpanel{background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.14);border-radius:24px;padding:34px;backdrop-filter:blur(8px);box-shadow:0 40px 90px -50px rgba(0,0,0,.8),0 1px 0 rgba(255,255,255,.08) inset}
+.tpanel .tp-q{font-family:"Geist Mono";font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(245,244,251,.62);margin-bottom:16px}
+.tp-choices{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:26px}
+.tp-choice{font-family:"Instrument Sans";font-size:.94rem;font-weight:500;color:var(--paper);padding:12px 20px;border-radius:12px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);cursor:pointer;transition:transform .3s var(--ease),background .3s,border-color .3s}
+.tp-choice:hover{transform:translateY(-2px);background:rgba(255,255,255,.1)}
+.tp-choice.on{background:linear-gradient(120deg,var(--accent),var(--accent-3));border-color:transparent;box-shadow:0 14px 34px -14px color-mix(in srgb,var(--accent) 80%,transparent)}
+.tp-result{border-top:1px solid rgba(255,255,255,.14);padding-top:24px;display:grid;grid-template-columns:1fr auto;gap:18px 24px;align-items:end;min-height:118px}
+.tp-result .tr-eye{grid-column:1/-1;font-family:"Geist Mono";font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-2)}
+.tp-result .tr-name{font-family:"Fraunces";font-size:clamp(1.5rem,2.4vw,2.1rem);font-weight:500;color:#fff;line-height:1.04;transition:opacity .35s var(--ease),transform .35s var(--ease)}
+.tp-result .tr-why{grid-column:1/2;color:rgba(245,244,251,.74);font-size:.94rem;max-width:40ch;transition:opacity .35s var(--ease)}
+.tp-result .tr-price{font-family:"Fraunces";font-size:2rem;font-weight:500;color:var(--accent-2);white-space:nowrap;align-self:start}
+.tp-result.swap .tr-name,.tp-result.swap .tr-why{opacity:0;transform:translateY(6px)}
+/* calculator */
+.tp-range{width:100%;margin:6px 0 8px;-webkit-appearance:none;appearance:none;height:6px;border-radius:6px;background:rgba(255,255,255,.14);outline:none}
+.tp-range::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-3));cursor:pointer;box-shadow:0 6px 18px -6px color-mix(in srgb,var(--accent) 90%,transparent),0 0 0 4px color-mix(in srgb,var(--accent) 22%,transparent)}
+.tp-range::-moz-range-thumb{width:26px;height:26px;border:none;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-3));cursor:pointer}
+.tp-rangehead{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+.tp-rangehead .rh-label{font-family:"Geist Mono";font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(245,244,251,.62)}
+.tp-rangehead .rh-val{font-family:"Fraunces";font-size:1.5rem;font-weight:500;color:#fff}
+.tp-outs{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:14px;margin-top:26px}
+.tp-out{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:15px;padding:20px 18px}
+.tp-out b{font-family:"Fraunces";font-size:clamp(1.7rem,2.6vw,2.3rem);font-weight:500;color:var(--accent-2);display:block;line-height:1}
+.tp-out span{font-size:.8rem;color:rgba(245,244,251,.66);display:block;margin-top:6px}
+
 /* ================= RESPONSIVE ================= */
 @media(max-width:960px){
+  .tool .shell{grid-template-columns:1fr;gap:34px}
+  .signal .shell{grid-template-columns:1fr;gap:14px;padding:22px 0}
+  .sig-src{text-align:left}
   .hero-grid,.showcase .shell,.cta .shell,.guarantee .shell,.faq-shell{grid-template-columns:1fr;gap:40px}
   .hero-visual{aspect-ratio:5/4;order:-1}
   .tag.t1{right:8px}.tag.t2{left:8px}
@@ -426,6 +473,56 @@ const CONFIG = {
       "alt": "Sneaker Zèta vegan et recyclée, modèle 3D interactif"
     },
     "videoUrl": ""
+  },
+  "signal": {
+    "label": "Repéré",
+    "date": "Bordeaux",
+    "source": "Écho Bordeaux",
+    "text": "Votre marque est devenue fournisseur officiel de la Cité du Vin à Bordeaux, avec des baskets nées du marc de raisin. C'est ce partenariat, local et concret, qui a déclenché cette page.",
+    "em": "fournisseur officiel de la Cité du Vin"
+  },
+  "tool": {
+    "kind": "selector",
+    "eyebrow": "La matière Zèta",
+    "title": "Votre paire,\nnée de quel déchet ?",
+    "lead": "Chaque paire remplace le plastique et le pétrole par des déchets agricoles transformés. Choisissez une matière, voyez ce qu'elle devient.",
+    "prompt": "Une matière ?",
+    "resultEye": "Ce que ça devient chez Zèta",
+    "note": "Des déchets récupérés, transformés en matière, à la place du cuir animal et du plastique vierge.",
+    "choices": [
+      {
+        "k": "Marc de raisin",
+        "rec": {
+          "name": "Cuir végétal de raisin",
+          "price": "",
+          "why": "Le marc de raisin des vignobles, transformé en une matière souple et résistante, à la place du cuir animal."
+        }
+      },
+      {
+        "k": "Maïs",
+        "rec": {
+          "name": "Fibre de maïs",
+          "price": "",
+          "why": "Les résidus de maïs deviennent matières et lacets, recyclables et vegan, comme sur l'Alta Bordeaux."
+        }
+      },
+      {
+        "k": "Café",
+        "rec": {
+          "name": "Marc de café",
+          "price": "",
+          "why": "Le marc de café récupéré entre dans la composition, un déchet du quotidien transformé en matière utile."
+        }
+      },
+      {
+        "k": "Plastique recyclé",
+        "rec": {
+          "name": "Doublure recyclée",
+          "price": "",
+          "why": "Doublure et lacets en plastique recyclé, rien de neuf gaspillé, tout est récupéré."
+        }
+      }
+    ]
   },
   "marquee": [
     {
@@ -772,6 +869,14 @@ document.getElementById('app').innerHTML = `
   ${A(c.marquee).concat(A(c.marquee)).map(m=>`<span class="mq-item"><b>${m.b}</b> ${m.t}<span class="dot"></span></span>`).join('')}
 </div></div>
 
+${c.signal?`<section class="signal" aria-label="Actualité de la marque">
+  <div class="shell">
+    <div class="sig-when"><span class="sig-tag">${c.signal.label||'Repéré'}</span><span class="sig-date">${c.signal.date||''}</span></div>
+    <p class="sig-body">${c.signal.em&&c.signal.text.includes(c.signal.em)?c.signal.text.replace(c.signal.em,`<em>${c.signal.em}</em>`):c.signal.text}</p>
+    ${c.signal.source?`<div class="sig-src">source<b>${c.signal.source}</b></div>`:''}
+  </div>
+</section>`:''}
+
 <section class="showcase" id="showcase">
   <div class="shell">
     <div class="sc-media" data-left>
@@ -815,6 +920,38 @@ ${c.gallery?`<section class="gallery" id="gallery">
     ${A(c.steps.items).map((s,i)=>`<article class="step"><div class="st-top"><span class="num">${s.num}</span><span class="bigidx" aria-hidden="true">0${i+1}</span></div><div class="rule"></div><div><h3>${s.title}</h3><p>${s.text}</p></div></article>`).join('')}
   </div>
 </section>
+
+${c.tool?`<section class="tool" id="tool">
+  <div class="tbg" aria-hidden="true"></div>
+  <div class="shell">
+    <div class="tool-copy" data-left>
+      <span class="mono">${c.tool.eyebrow||''}</span>
+      <h2>${(c.tool.title||'').replace(/\n/g,'<br>')}</h2>
+      <p class="lead">${c.tool.lead||''}</p>
+      ${c.tool.note?`<p class="t-note">${c.tool.note}</p>`:''}
+    </div>
+    <div class="tpanel" data-right>
+      ${c.tool.kind==='calculator'?`
+        <div class="tp-rangehead"><span class="rh-label">${c.tool.inputLabel||''}</span><span class="rh-val" id="tpRangeVal"></span></div>
+        <input class="tp-range" id="tpRange" type="range" min="${c.tool.min}" max="${c.tool.max}" step="${c.tool.step||1}" value="${c.tool.default}" aria-label="${c.tool.inputLabel||''}">
+        <div class="tp-outs">
+          ${A(c.tool.outputs).map((o,i)=>`<div class="tp-out"><b id="tpOut${i}"></b><span>${o.label}</span></div>`).join('')}
+        </div>
+      `:`
+        <div class="tp-q">${c.tool.prompt||''}</div>
+        <div class="tp-choices" id="tpChoices">
+          ${A(c.tool.choices).map((ch,i)=>`<button class="tp-choice${i===0?' on':''}" data-i="${i}" type="button">${ch.k}</button>`).join('')}
+        </div>
+        <div class="tp-result" id="tpResult">
+          <span class="tr-eye">${c.tool.resultEye||'Notre recommandation'}</span>
+          <div class="tr-name" id="tpName"></div>
+          <div class="tr-price" id="tpPrice"></div>
+          <div class="tr-why" id="tpWhy"></div>
+        </div>
+      `}
+    </div>
+  </div>
+</section>`:''}
 
 <section class="social" id="quote">
   <div class="bg" aria-hidden="true"></div>
@@ -1011,6 +1148,25 @@ function mountRaymarch(canvas,onLive){
   document.addEventListener('visibilitychange',()=>document.hidden?halt():(inView&&run()));
   run();
 }
+/* ---------- OUTIL INTERACTIF MÉTIER (selector / calculator) ---------- */
+(function tool(){const T=CONFIG.tool;if(!T)return;
+  if(T.kind==='calculator'){
+    const range=document.getElementById('tpRange'),val=document.getElementById('tpRangeVal');if(!range)return;
+    const fmt=n=>{const r=Math.round(n*100)/100;return (Number.isInteger(r)?r:r.toFixed(1).replace(/\.0$/,'')).toString().replace('.',',');};
+    function render(){const q=parseFloat(range.value);val.textContent=fmt(q)+(T.unit?(' '+T.unit):'');
+      A(T.outputs).forEach((o,i)=>{const el=document.getElementById('tpOut'+i);if(!el)return;let v=o.perUnit!=null?o.perUnit*q:(o.value!=null?o.value:0);if(o.max!=null)v=Math.min(v,o.max);el.textContent=(o.prefix||'')+fmt(v)+(o.suffix||'');});}
+    range.addEventListener('input',render);render();
+  }else{
+    const wrap=document.getElementById('tpChoices'),res=document.getElementById('tpResult');
+    const nm=document.getElementById('tpName'),pr=document.getElementById('tpPrice'),wy=document.getElementById('tpWhy');if(!wrap)return;
+    function pick(i){const ch=T.choices[i];if(!ch)return;res.classList.add('swap');
+      setTimeout(()=>{nm.textContent=ch.rec.name;pr.textContent=ch.rec.price||'';wy.textContent=ch.rec.why||'';res.classList.remove('swap');},220);
+      [...wrap.children].forEach((b,k)=>b.classList.toggle('on',k===i));}
+    wrap.querySelectorAll('.tp-choice').forEach(b=>b.addEventListener('click',()=>pick(+b.dataset.i)));
+    const ch0=T.choices[0];nm.textContent=ch0.rec.name;pr.textContent=ch0.rec.price||'';wy.textContent=ch0.rec.why||'';
+  }
+})();
+
 /* hero: shader seulement si pas de modèle 3D ni vidéo */
 if(!CONFIG.hero.model3d&&!CONFIG.hero.videoUrl){mountRaymarch(document.getElementById('sig'),()=>{const hv=document.getElementById('hv');if(hv)hv.classList.add('live');});}
 /* CTA: signature visuelle animée hors hero (WebGL1, robuste) */
