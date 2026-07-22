@@ -826,9 +826,11 @@ const c=CONFIG, B=c.brand.name, A=a=>a||[];
 const HAS_WEBGL2=(()=>{try{return !!document.createElement('canvas').getContext('webgl2')}catch(e){return false}})();
 const m3dPoster=c.hero.model3d&&c.hero.model3d.poster;
 const m3dFit = (c.hero.model3d && c.hero.model3d.fit) || 'product';
+const m3dFov = (c.hero.model3d && c.hero.model3d.fov) || (m3dFit==='wide'?16:32);
+const m3dOrbit = (c.hero.model3d && c.hero.model3d.orbit) || (m3dFit==='wide'?'22deg 80deg auto':'0deg 74deg auto');
 const m3dCam = m3dFit==='wide'
-  ? 'camera-orbit="22deg 80deg auto" field-of-view="16deg" min-field-of-view="8deg" max-field-of-view="40deg"'
-  : 'camera-orbit="0deg 74deg auto" field-of-view="32deg" disable-zoom';
+  ? `camera-orbit="${m3dOrbit}" field-of-view="${m3dFov}deg" min-field-of-view="8deg" max-field-of-view="45deg"`
+  : `camera-orbit="${m3dOrbit}" field-of-view="${m3dFov}deg" disable-zoom`;
 const heroVisual = c.hero.model3d
   ? (HAS_WEBGL2
      ? `<div class="hv-clip m3d${m3dFit==='wide'?'':' prod'}"><model-viewer src="${c.hero.model3d.glb}"${m3dPoster?` poster="${c.hero.model3d.poster}"`:''} alt="${c.hero.model3d.alt||''}" camera-controls auto-rotate rotation-per-second="26deg" interaction-prompt="none" shadow-intensity="1.05" shadow-softness="1" exposure="1.05" environment-image="neutral" ${m3dCam} touch-action="pan-y"></model-viewer></div>`
@@ -1048,8 +1050,9 @@ burger.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.prevent
 mmenu.querySelectorAll('[data-close]').forEach(a=>a.addEventListener('click',()=>setMenu(false)));
 
 /* ---------- COMPTEURS animés (stats hero) ---------- */
-function animateCount(el){const raw=el.textContent.trim();const m=raw.match(/^([^\d]*)(\d[\d\s.,]*)(.*)$/);if(!m)return;const pre=m[1],suf=m[3];const target=parseFloat(m[2].replace(/\s/g,'').replace(',','.'));const dec=(m[2].includes(',')||m[2].includes('.'))?1:0;let s=null;const dur=1100;
-  function step(ts){if(!s)s=ts;const p=Math.min(1,(ts-s)/dur);const e=1-Math.pow(1-p,3);const v=(target*e).toFixed(dec).replace('.',',');el.textContent=pre+v+suf;if(p<1)requestAnimationFrame(step)}requestAnimationFrame(step);}
+function animateCount(el){const raw=el.dataset.final||el.textContent.trim();el.dataset.final=raw;const m=raw.match(/^(\D*)(\d[\d\s.,]*?)(\s*)(\D*)$/);if(!m){el.textContent=raw;return;}const pre=m[1],gap=m[3],suf=m[4];const numStr=m[2].replace(/\s/g,'');const target=parseFloat(numStr.replace(',','.'));const dec=(numStr.includes(',')||numStr.includes('.'))?1:0;const fin=()=>{el.textContent=raw;};if(reduce||typeof requestAnimationFrame!=='function'){fin();return;}let s=null;const dur=1100;let done=false;
+  function step(ts){if(!s)s=ts;const p=Math.min(1,(ts-s)/dur);const e=1-Math.pow(1-p,3);const v=(target*e).toFixed(dec).replace('.',',');el.textContent=pre+v+gap+suf;if(p<1){requestAnimationFrame(step)}else{done=true;fin();}}requestAnimationFrame(step);
+  setTimeout(()=>{if(!done)fin();},1600);}
 if(!reduce){const statObs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){animateCount(e.target);statObs.unobserve(e.target)}}),{threshold:.6});
 document.querySelectorAll('.hero-trust .stat b').forEach(el=>statObs.observe(el));}
 
