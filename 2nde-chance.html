@@ -391,7 +391,7 @@ const CONFIG = {
       }
     ],
     "model3d": {
-      "glb": "shoe.glb",
+      "glb": "nike-af1.glb",
       "alt": "Sneaker écoresponsable 2nde Chance, modèle 3D interactif"
     },
     "videoUrl": ""
@@ -675,7 +675,7 @@ function glyph(){return `<svg class="glyph" viewBox="0 0 120 120" aria-hidden="t
 /* ---------- RENDER ---------- */
 const c=CONFIG, B=c.brand.name, A=a=>a||[];
 const heroVisual = c.hero.model3d
-  ? `<div class="hv-clip m3d"><model-viewer src="${c.hero.model3d.glb}" alt="${c.hero.model3d.alt||''}" camera-controls auto-rotate rotation-per-second="24deg" interaction-prompt="none" shadow-intensity="1.1" shadow-softness="1" exposure="1.05" environment-image="neutral" camera-orbit="22deg 80deg auto" field-of-view="21deg" min-field-of-view="14deg" max-field-of-view="45deg" touch-action="pan-y"></model-viewer></div>`
+  ? `<div class="hv-clip m3d"><model-viewer src="${c.hero.model3d.glb}" alt="${c.hero.model3d.alt||''}" camera-controls auto-rotate rotation-per-second="24deg" interaction-prompt="none" shadow-intensity="1.1" shadow-softness="1" exposure="1.05" environment-image="neutral" camera-orbit="22deg 80deg auto" field-of-view="16deg" min-field-of-view="8deg" max-field-of-view="40deg" touch-action="pan-y"></model-viewer></div>`
   : c.hero.videoUrl
   ? `<div class="hv-clip"><video autoplay muted loop playsinline src="${c.hero.videoUrl}"></video></div>`
   : `<div class="hv-clip"><canvas id="sig" aria-hidden="true"></canvas><div class="orb" aria-hidden="true"><div class="ring"></div><div class="blob"></div></div></div>`;
