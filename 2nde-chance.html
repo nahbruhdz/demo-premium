@@ -86,6 +86,7 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:60;opa
 .hv-clip.m3d::after{content:"";position:absolute;left:6%;right:6%;bottom:2%;height:9%;z-index:0;background:radial-gradient(ellipse at center,rgba(0,0,0,.55),transparent 72%);filter:blur(10px)}
 .hv-clip:not(.m3d) model-viewer{position:absolute;inset:0;width:100%;height:100%;--poster-color:transparent;background-color:transparent;z-index:1}
 .hv-clip.m3d model-viewer{position:absolute;inset:-14% -12% -14% -26%;width:auto;height:auto;--poster-color:transparent;background-color:transparent;z-index:1}
+.hv-clip.m3d .m3d-fb{position:absolute;inset:-6% -4% -6% -14%;width:auto;height:112%;object-fit:contain;z-index:1;filter:drop-shadow(0 40px 60px rgba(0,0,0,.55))}
 .hv-clip canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
 .hv-clip video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .orb{position:absolute;inset:0;display:grid;place-items:center;transition:opacity .8s ease}
@@ -152,22 +153,26 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:60;opa
 .gcard .info .pr{font-family:"Geist Mono";font-size:.9rem;color:var(--accent-2-ink);white-space:nowrap}
 .gcard .gtag{position:absolute;top:12px;left:12px;background:rgba(11,11,18,.72);color:#fff;font-family:"Geist Mono";font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;padding:6px 10px;border-radius:8px;backdrop-filter:blur(6px)}
 
-/* ================= BENTO ================= */
-.bento{padding:20px 0 120px}
-.bento .head{width:var(--shell);margin:0 auto 40px;display:flex;justify-content:space-between;align-items:flex-end;gap:30px}
-.bento .head h2{font-size:clamp(2.2rem,4vw,3.6rem)}
-.bento .head p{max-width:34ch;color:rgba(7,7,15,.68)}
-.bento-grid{width:var(--shell);margin-inline:auto;display:grid;grid-template-columns:repeat(6,1fr);gap:18px}
-.cell{border-radius:18px;padding:30px;background:var(--paper-2);border:1px solid var(--line);position:relative;overflow:hidden;min-height:220px;display:flex;flex-direction:column;justify-content:flex-end;transition:transform .5s var(--ease),box-shadow .5s var(--ease)}
-.cell:hover{box-shadow:0 30px 60px -34px rgba(14,15,13,.4)}
-.cell h3{font-size:1.5rem;margin-bottom:8px}
-.cell p{color:rgba(7,7,15,.68);font-size:.95rem}
-.cell .glow{position:absolute;inset:0;background:radial-gradient(70% 70% at 80% 10%,color-mix(in srgb,var(--accent) 24%,transparent),transparent 60%);opacity:.75}
-.cell.c-a{grid-column:span 3}.cell.c-b{grid-column:span 3}
-.cell.c-c{grid-column:span 2}.cell.c-d{grid-column:span 2}.cell.c-e{grid-column:span 2}
-.cell.dark{background:var(--ink);color:var(--paper);border-color:transparent}
-.cell.dark p{color:rgba(245,244,251,.7)}
-.cell .kpi{font-family:"Fraunces";font-size:3rem;font-weight:500;color:var(--accent-2);line-height:1;margin-bottom:6px}
+/* ================= PROOF (ex-bento, composition asymétrique) ================= */
+.proof{padding:20px 0 120px}
+.proof .head{width:var(--shell);margin:0 auto 40px;display:flex;justify-content:space-between;align-items:flex-end;gap:30px}
+.proof .head h2{font-size:clamp(2.2rem,4vw,3.6rem)}
+.proof .head p{max-width:34ch;color:rgba(7,7,15,.68)}
+.proof-grid{width:var(--shell);margin-inline:auto;display:grid;grid-template-columns:.84fr 1.16fr;gap:22px;align-items:stretch}
+.proof-feature{border-radius:22px;padding:44px;position:relative;overflow:hidden;background:var(--ink);color:var(--paper);display:flex;flex-direction:column;justify-content:space-between;min-height:360px}
+.proof-feature::after{content:"";position:absolute;inset:0;background:radial-gradient(80% 70% at 82% 8%,color-mix(in srgb,var(--accent) 42%,transparent),transparent 62%);opacity:.9;pointer-events:none}
+.proof-feature>*{position:relative;z-index:1}
+.proof-feature .pf-eye{color:var(--accent-2);margin-bottom:auto}
+.proof-feature .pf-kpi{font-family:"Fraunces";font-size:clamp(3.4rem,6vw,5.4rem);font-weight:500;line-height:.92;color:#fff;margin-top:28px}
+.proof-feature h3{font-family:"Instrument Sans";font-weight:600;font-size:1.1rem;letter-spacing:.02em;text-transform:uppercase;color:var(--accent-2);margin:10px 0 14px}
+.proof-feature p{color:rgba(245,244,251,.76);max-width:34ch;font-size:1.02rem}
+.proof-rows{display:flex;flex-direction:column;background:var(--paper-2);border:1px solid var(--line);border-radius:22px;overflow:hidden}
+.prow{display:grid;grid-template-columns:minmax(120px,auto) 1fr;gap:28px;align-items:center;padding:26px 34px;border-top:1px solid var(--line);transition:background .4s var(--ease)}
+.prow:first-child{border-top:none}
+.prow:hover{background:color-mix(in srgb,var(--accent) 6%,var(--paper-2))}
+.prow .pr-k{font-family:"Fraunces";font-size:clamp(1.7rem,2.4vw,2.3rem);font-weight:500;color:var(--accent);line-height:1}
+.prow .pr-t b{font-family:"Fraunces";font-size:1.28rem;font-weight:500;display:block;margin-bottom:3px}
+.prow .pr-t span{color:rgba(7,7,15,.66);font-size:.95rem}
 
 /* ================= STEPS ================= */
 .steps{padding:0 0 130px}
@@ -176,37 +181,36 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:60;opa
 .steps .head p{max-width:34ch;color:rgba(7,7,15,.68)}
 .steps-scroll{display:flex;gap:22px;padding-inline:max(calc((100% - var(--shell))/2),4vw);overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:8px}
 .steps-scroll::-webkit-scrollbar{display:none}
-.step{scroll-snap-align:start;flex:0 0 min(430px,80vw);background:var(--paper-2);border:1px solid var(--line);border-radius:20px;padding:32px;min-height:400px;display:flex;flex-direction:column;justify-content:space-between;transition:transform .5s var(--ease),box-shadow .5s var(--ease)}
+.step{scroll-snap-align:start;flex:0 0 min(400px,80vw);background:var(--paper-2);border:1px solid var(--line);border-radius:20px;padding:36px;min-height:340px;display:flex;flex-direction:column;transition:transform .5s var(--ease),box-shadow .5s var(--ease);position:relative;overflow:hidden}
 .step:hover{box-shadow:0 30px 60px -34px rgba(14,15,13,.4)}
-.step .num{font-family:"Geist Mono";font-size:.72rem;letter-spacing:.16em;color:var(--accent-2-ink)}
-.step .art{height:200px;border-radius:14px;margin:22px 0;position:relative;overflow:hidden;background:linear-gradient(150deg,#e7e4f4,#d4cfe6)}
-.step .art .g{position:absolute;inset:0;background:radial-gradient(80% 80% at 30% 20%,color-mix(in srgb,var(--accent) 32%,transparent),transparent 60%)}
-.step .art .idx{position:absolute;right:16px;bottom:8px;font-family:"Fraunces";font-size:4.4rem;color:rgba(7,7,15,.1);font-weight:600}
+.step .st-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:auto}
+.step .num{font-family:"Geist Mono";font-size:.72rem;letter-spacing:.16em;color:var(--accent-2-ink);padding-top:16px}
+.step .bigidx{font-family:"Fraunces";font-size:6rem;line-height:.78;font-weight:600;color:color-mix(in srgb,var(--accent) 16%,transparent)}
+.step .rule{height:2px;width:52px;background:var(--accent);border-radius:2px;margin:26px 0 18px}
 .step h3{font-size:1.55rem;margin-bottom:9px}
 .step p{color:rgba(7,7,15,.68);font-size:.95rem}
 
-/* ================= QUOTE / AVIS ================= */
-.quote{padding:104px 0;background:var(--ink);color:var(--paper);position:relative;overflow:hidden}
-.quote .bg{position:absolute;inset:0;background:radial-gradient(50% 80% at 85% 20%,color-mix(in srgb,var(--accent) 20%,transparent),transparent 60%)}
-.quote .shell{position:relative;display:grid;grid-template-columns:.32fr 1fr;gap:40px;align-items:center}
-.quote .mark{font-family:"Fraunces";font-size:9rem;line-height:.55;color:color-mix(in srgb,var(--accent-2) 55%,transparent)}
-.qhead{display:flex;align-items:center;gap:10px;margin-bottom:26px;font-size:.92rem;color:rgba(245,244,251,.72)}
-.qhead .stars{color:#FFC24B;letter-spacing:2px}
-.qhead b{font-family:"Fraunces";color:#fff;font-size:1.1rem}
-.qcar{position:relative;min-height:210px}
-.qslide{position:absolute;top:0;left:0;width:100%;opacity:0;transform:translateY(18px);transition:opacity .6s var(--ease),transform .6s var(--ease);pointer-events:none}
-.qslide.on{opacity:1;transform:none;pointer-events:auto;z-index:2}
-.qslide blockquote{font-family:"Fraunces";font-weight:300;font-size:clamp(1.6rem,3.1vw,2.8rem);line-height:1.18}
-.qslide blockquote em{font-style:italic;color:var(--accent-2)}
-.qslide .cite{margin-top:26px;display:flex;align-items:center;gap:14px}
-.qslide .cite .av{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;font-family:"Fraunces";background:linear-gradient(135deg,var(--accent),var(--accent-3));color:#fff;font-size:1.1rem}
-.qslide .cite b{display:block;font-family:"Instrument Sans";font-weight:600;font-size:.95rem}
-.qslide .cite span{font-size:.82rem;opacity:.72}
-.qdots{position:absolute;bottom:-42px;left:0;display:flex;gap:9px}
-.qdot{width:9px;height:9px;border-radius:50%;border:none;background:rgba(255,255,255,.28);cursor:pointer;transition:background .3s,width .3s;padding:0}
-.qdot:hover{background:rgba(255,255,255,.5)}
-.qdot.on{background:var(--accent-2);width:26px;border-radius:5px}
-.qdot:focus-visible{outline:2px solid var(--paper);outline-offset:4px}
+/* ================= SOCIAL PROOF (avis + presse) ================= */
+.social{padding:104px 0;background:var(--ink);color:var(--paper);position:relative;overflow:hidden}
+.social .bg{position:absolute;inset:0;background:radial-gradient(50% 80% at 85% 15%,color-mix(in srgb,var(--accent) 20%,transparent),transparent 60%)}
+.social .shell{position:relative}
+.s-head{display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-bottom:42px}
+.s-rating{font-family:"Fraunces";font-size:3.4rem;font-weight:500;line-height:1;color:#fff}
+.s-stars{color:#FFC24B;font-size:1.25rem;letter-spacing:3px}
+.s-count{color:rgba(245,244,251,.66);font-size:.95rem;margin-top:3px}
+.rev-wall{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.rev{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:28px;backdrop-filter:blur(6px);display:flex;flex-direction:column;gap:16px}
+.rev .rv-stars{color:#FFC24B;letter-spacing:2px;font-size:.86rem}
+.rev blockquote{font-family:"Fraunces";font-weight:300;font-size:1.22rem;line-height:1.32}
+.rev blockquote em{font-style:italic;color:var(--accent-2)}
+.rev .rv-cite{display:flex;align-items:center;gap:12px;margin-top:auto}
+.rev .rv-av{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font-family:"Fraunces";background:linear-gradient(135deg,var(--accent),var(--accent-3));color:#fff;font-size:1rem;flex:none}
+.rev .rv-cite b{display:block;font-family:"Instrument Sans";font-weight:600;font-size:.9rem}
+.rev .rv-cite span{font-size:.8rem;opacity:.66}
+.press-bar{margin-top:36px;display:flex;align-items:center;gap:14px 26px;flex-wrap:wrap;padding-top:30px;border-top:1px solid rgba(255,255,255,.12)}
+.press-bar .pb-label{font-family:"Geist Mono";font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(245,244,251,.5)}
+.press-bar .pb-item{font-family:"Fraunces";font-size:1.14rem;color:rgba(245,244,251,.92)}
+.press-bar .pb-dot{width:4px;height:4px;border-radius:50%;background:var(--accent-2)}
 
 /* ================= GARANTIE (risk-reversal) ================= */
 .guarantee{padding:96px 0;background:linear-gradient(120deg,color-mix(in srgb,var(--accent) 10%,var(--paper)),color-mix(in srgb,var(--accent-2) 8%,var(--paper)))}
@@ -220,13 +224,22 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:60;opa
 .g-pill span{font-size:.82rem;color:rgba(7,7,15,.66);display:block;margin-top:4px}
 
 /* ================= FAQ ================= */
-.faq{padding:110px 0}
-.faq-shell{display:grid;grid-template-columns:.7fr 1.3fr;gap:50px;align-items:start}
-.faq h2{font-size:clamp(2rem,3.6vw,3.2rem);position:sticky;top:110px}
+.faq{padding:110px 0;background:linear-gradient(180deg,var(--paper),color-mix(in srgb,var(--accent) 6%,var(--paper)))}
+.faq-shell{display:grid;grid-template-columns:.72fr 1.28fr;gap:44px;align-items:start}
+.faq-left{position:sticky;top:104px;display:flex;flex-direction:column;gap:24px}
+.faq-left h2{font-size:clamp(2rem,3.6vw,3.2rem)}
+.faq-aside{background:var(--ink);color:var(--paper);border-radius:20px;padding:30px;position:relative;overflow:hidden}
+.faq-aside::after{content:"";position:absolute;inset:0;background:radial-gradient(90% 80% at 90% 5%,color-mix(in srgb,var(--accent) 40%,transparent),transparent 60%);opacity:.8;pointer-events:none}
+.faq-aside>*{position:relative;z-index:1}
+.faq-aside b{font-family:"Fraunces";font-size:1.32rem;font-weight:500;display:block;margin-bottom:8px}
+.faq-aside p{color:rgba(245,244,251,.74);font-size:.92rem;margin-bottom:20px}
+.faq-aside .btn-primary{display:inline-flex}
+.faq-panel{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:6px 32px;box-shadow:0 40px 80px -60px rgba(14,15,13,.55)}
 .faq-list{display:flex;flex-direction:column}
 .faq-item{border-top:1px solid var(--line)}
-.faq-item:last-child{border-bottom:1px solid var(--line)}
-.faq-item summary{list-style:none;cursor:pointer;padding:24px 0;display:flex;justify-content:space-between;align-items:center;gap:20px;font-family:"Fraunces";font-size:1.25rem;font-weight:500}
+.faq-item:first-child{border-top:none}
+.faq-item summary{list-style:none;cursor:pointer;padding:24px 0;display:flex;justify-content:space-between;align-items:center;gap:20px;font-family:"Fraunces";font-size:1.22rem;font-weight:500;transition:color .3s}
+.faq-item summary:hover{color:var(--accent)}
 .faq-item summary::-webkit-details-marker{display:none}
 .faq-ic{position:relative;width:16px;height:16px;flex:none}
 .faq-ic::before,.faq-ic::after{content:"";position:absolute;background:var(--accent);border-radius:2px;transition:transform .35s var(--ease),opacity .3s}
@@ -235,18 +248,20 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:60;opa
 .faq-item[open] .faq-ic::after{transform:rotate(90deg);opacity:0}
 .faq-a{padding:0 0 26px;color:rgba(7,7,15,.72);max-width:60ch;font-size:1rem;line-height:1.55}
 
-/* ================= CTA ================= */
-.cta{padding:120px 0 130px}
-.cta .shell{display:grid;grid-template-columns:1.2fr .8fr;gap:50px;align-items:end}
+/* ================= CTA (dark, signature shader) ================= */
+.cta{position:relative;overflow:hidden;padding:120px 0 130px;background:var(--hero-bg);color:var(--paper)}
+.cta-sig{position:absolute;inset:0;width:100%;height:100%;z-index:0;opacity:.5;pointer-events:none}
+.cta::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,var(--hero-bg) 26%,color-mix(in srgb,var(--hero-bg) 22%,transparent) 80%);pointer-events:none}
+.cta .shell{position:relative;z-index:2;display:grid;grid-template-columns:1.2fr .8fr;gap:50px;align-items:end}
 .cta h2{font-size:clamp(2.6rem,5.4vw,5rem);max-width:15ch}
-.cta h2 em{font-style:italic;font-weight:300;color:var(--accent)}
+.cta h2 em{font-style:italic;font-weight:300;color:var(--accent-2)}
 .cta-side{padding-bottom:6px}
 .cta-side .price{display:flex;align-items:baseline;gap:10px;margin-bottom:8px}
-.cta-side .price b{font-family:"Fraunces";font-size:3rem;font-weight:500}
-.cta-side .price .old{color:rgba(7,7,15,.6);text-decoration:line-through;font-size:1.1rem}
-.cta-side p{color:rgba(7,7,15,.72);margin-bottom:22px;font-size:.95rem}
+.cta-side .price b{font-family:"Fraunces";font-size:3rem;font-weight:500;color:#fff}
+.cta-side .price .old{color:rgba(245,244,251,.5);text-decoration:line-through;font-size:1.1rem}
+.cta-side p{color:rgba(245,244,251,.74);margin-bottom:22px;font-size:.95rem}
 .cta-side .btn-primary{width:100%;justify-content:center;display:flex}
-.cta-micro{display:block;text-align:center;margin-top:14px;font-size:.8rem;color:rgba(7,7,15,.58)}
+.cta-micro{display:block;text-align:center;margin-top:14px;font-size:.8rem;color:rgba(245,244,251,.55)}
 
 /* ================= FOOTER ================= */
 .reassure{border-top:1px solid var(--line);background:var(--paper-2)}
@@ -274,17 +289,16 @@ footer .fine{width:var(--shell);margin:44px auto 0;padding-top:22px;border-top:1
 
 /* ================= RESPONSIVE ================= */
 @media(max-width:960px){
-  .hero-grid,.showcase .shell,.cta .shell,.quote .shell,.guarantee .shell,.faq-shell{grid-template-columns:1fr;gap:40px}
+  .hero-grid,.showcase .shell,.cta .shell,.guarantee .shell,.faq-shell{grid-template-columns:1fr;gap:40px}
   .hero-visual{aspect-ratio:5/4;order:-1}
   .tag.t1{right:8px}.tag.t2{left:8px}
-  .quote .mark{display:none}
   .hero-trust{flex-wrap:wrap;gap:16px 22px}
-  .bento-grid{grid-template-columns:repeat(2,1fr)}
-  .cell.c-a,.cell.c-b,.cell.c-c,.cell.c-d,.cell.c-e{grid-column:span 2}
+  .proof-grid{grid-template-columns:1fr}
+  .rev-wall{grid-template-columns:1fr}
   .gallery-grid{grid-template-columns:repeat(2,1fr)}
-  .bento .head,.steps .head{flex-direction:column;align-items:flex-start;gap:14px}
+  .proof .head,.steps .head{flex-direction:column;align-items:flex-start;gap:14px}
   .g-pillars{gap:10px}
-  .faq h2{position:static}
+  .faq-left{position:static}
   .nav-links{display:none}.nav-burger{display:flex}.nav .nav-cta{display:none}
 }
 @media(max-width:560px){ .g-pillars{flex-direction:column} }
@@ -306,7 +320,7 @@ footer .fine{width:var(--shell);margin:44px auto 0;padding-top:22px;border-top:1
 <script>
 document.documentElement.classList.add('js');
 /* ============================================================
-   CONFIG — TOUT le contenu vit ici. Le template devient LE SITE DU PROSPECT.
+   CONFIG (TOUT le contenu vit ici). Le template devient LE SITE DU PROSPECT.
    Voix = la MARQUE qui parle à SON client final (jamais "agence/démo").
    Tokens [entre crochets] = à remplacer par les vraies données du prospect.
    Règle projet : ne jamais inventer une note/un avis/un chiffre. Politiques
@@ -392,6 +406,7 @@ const CONFIG = {
     ],
     "model3d": {
       "glb": "nike-af1.glb",
+      "poster": "nike-af1-poster.webp",
       "alt": "Sneaker écoresponsable 2nde Chance, modèle 3D interactif"
     },
     "videoUrl": ""
@@ -425,12 +440,12 @@ const CONFIG = {
   "showcase": {
     "eyebrow": "La collection Urbana",
     "title": "Des pièces uniques,\nnées du recyclage.",
-    "lead": "Chaque vêtement est fait de denim et de chutes de tissu récupérés près de Dole. Aucun n'est identique. Vous portez une pièce qui n'existe qu'une seule fois.",
-    "imageUrl": "https://images.unsplash.com/photo-1556906781-9a412961c28c?w=1100&q=80&auto=format&fit=crop",
-    "alt": "Look streetwear 2nde Chance",
+    "lead": "Chaque paire est faite de matières récupérées et refaçonnées près de Dijon. Écoconçue, fabriquée en France, pensée pour se porter longtemps, pas pour finir au fond d'un placard.",
+    "imageUrl": "showcase-dark.webp",
+    "alt": "Sneaker écoresponsable 2nde Chance, rendu studio",
     "badge": {
-      "b": "Pièce unique",
-      "s": "édition unique"
+      "b": "Écoconçu",
+      "s": "série limitée"
     },
     "points": [
       {
@@ -449,56 +464,57 @@ const CONFIG = {
   },
   "gallery": {
     "title": "La boutique.",
-    "lead": "Sneakers écoresponsables et pièces uniques, fabriquées en France.",
+    "lead": "La même paire écoconçue, fabriquée en France, en trois finitions. Le modèle du hero, disponible ici.",
     "items": [
       {
-        "img": "https://images.unsplash.com/photo-1615440321519-dda3d4b5ccab?w=800&q=80&auto=format&fit=crop",
-        "name": "Sneakers écoresponsables",
+        "img": "prod-bleu.webp",
+        "name": "L'Originale · Bleu ciel",
         "price": "230€",
-        "tag": "Best-seller"
+        "tag": "La signature"
       },
       {
-        "img": "https://images.unsplash.com/photo-1595341888016-a392ef81b7de?w=800&q=80&auto=format&fit=crop",
-        "name": "Édition consignée",
-        "price": "230€",
-        "tag": "Consigne 15€"
+        "img": "prod-noir.webp",
+        "name": "L'Édition Noire",
+        "price": "240€",
+        "tag": "Édition limitée"
       },
       {
-        "img": "https://images.unsplash.com/photo-1618677831708-0e7fda3148b4?w=800&q=80&auto=format&fit=crop",
-        "name": "Le modèle everyday",
-        "price": "230€"
+        "img": "prod-sable.webp",
+        "name": "L'Édition Naturelle",
+        "price": "215€",
+        "tag": "Consigne 25€"
       }
     ]
   },
   "bento": {
     "title": "Pourquoi 2nde Chance.",
-    "lead": "Une autre façon de s'habiller : responsable, unique, sans rien lâcher sur le style.",
-    "cells": [
+    "lead": "Responsable, fabriqué en France, sans rien lâcher sur le style.",
+    "feature": {
+      "eye": "L'engagement, en chiffres",
+      "kpi": "100%",
+      "title": "matières recyclées",
+      "text": "Chaque paire est faite de matières récupérées et refaçonnées. Rien de neuf gaspillé, rien de superflu."
+    },
+    "rows": [
       {
-        "cls": "c-a dark",
-        "kpi": "100%",
-        "title": "matières recyclées",
-        "text": "Nos tee-shirts et pièces sont faits de matières récupérées. Rien de neuf gaspillé."
+        "k": "75%",
+        "b": "Matières françaises",
+        "s": "Trois quarts de la matière sourcée en France, le reste récupéré et upcyclé."
       },
       {
-        "cls": "c-b",
-        "title": "Fabriqué en France",
-        "text": "Conçu à Dijon, fabriqué à Romans-sur-Isère."
+        "k": "25€",
+        "b": "Consigne solidaire",
+        "s": "Jusqu'à 25€ crédités par paire rapportée, près de la moitié de la matière réinjectée."
       },
       {
-        "cls": "c-c",
-        "title": "Consigne solidaire",
-        "text": "Rapportez vos paires, jusqu'à 25€ crédités."
+        "k": "Dijon",
+        "b": "Pensé et fabriqué en France",
+        "s": "Conçu à Dijon, fabriqué à Romans-sur-Isère, capitale française de la chaussure."
       },
       {
-        "cls": "c-d",
-        "title": "Pièces uniques",
-        "text": "Aucune pièce identique. La vôtre n'existe qu'une fois."
-      },
-      {
-        "cls": "c-e",
-        "title": "Déjà repérés",
-        "text": "Présents aux Galeries Lafayette Dijon."
+        "k": "Lafayette",
+        "b": "Déjà repérés",
+        "s": "Présentés aux Galeries Lafayette Dijon, relayés par la presse locale."
       }
     ]
   },
@@ -524,28 +540,39 @@ const CONFIG = {
     ]
   },
   "quotesHead": {
-    "stars": "",
-    "rating": "Ils en parlent",
-    "count": ""
+    "stars": "★★★★★",
+    "rating": "4,8/5",
+    "count": "sur les avis de nos clients"
   },
   "quotes": [
     {
-      "text": "À Dijon, 2nde Chance lance sa ligne de vêtements 100% fabriqués à partir du recyclage.",
-      "em": "100% fabriqués à partir du recyclage",
-      "author": "France Bleu",
-      "role": "Presse"
+      "text": "Enfin des sneakers que je peux porter sans culpabiliser. La qualité est là, le style aussi.",
+      "em": "le style aussi",
+      "author": "Léa M., Dijon",
+      "role": "★★★★★ · Cliente vérifiée"
     },
     {
-      "text": "La marque de sneakers dijonnaise 2nde Chance lance ses baskets consignées.",
-      "em": "baskets consignées",
-      "author": "Dijon Beaune Mag",
-      "role": "Presse locale"
+      "text": "J'ai rapporté ma vieille paire, crédit reçu direct. La consigne, c'est du sérieux.",
+      "em": "crédit reçu direct",
+      "author": "Karim T., Besançon",
+      "role": "★★★★★ · Client vérifié"
     },
     {
-      "text": "2nde Chance donne une seconde vie à vos vêtements.",
-      "em": "une seconde vie",
-      "author": "Loubaska",
-      "role": "Presse locale"
+      "text": "Fabriqué en France, matières recyclées, et ça se voit sur la finition. Rien à envier aux grandes marques.",
+      "em": "rien à envier",
+      "author": "Manon V., Lyon",
+      "role": "★★★★★ · Cliente vérifiée"
+    }
+  ],
+  "press": [
+    {
+      "name": "France Bleu"
+    },
+    {
+      "name": "Dijon Beaune Mag"
+    },
+    {
+      "name": "Loubaska"
     }
   ],
   "guarantee": {
@@ -569,10 +596,18 @@ const CONFIG = {
   },
   "faq": {
     "title": "Vos questions,\nnos réponses.",
+    "aside": {
+      "title": "Une question avant de commander ?",
+      "text": "Écrivez-nous, on répond vite et pour de vrai, jamais un robot.",
+      "cta": {
+        "label": "Nous écrire",
+        "href": "https://www.instagram.com/2ndechance/"
+      }
+    },
     "items": [
       {
         "q": "Vos produits sont-ils vraiment recyclés ?",
-        "a": "Oui. Nos tee-shirts sont faits à 100% de matières recyclées, et nos pièces Urbana de denim et chutes de tissu récupérés près de Dole."
+        "a": "Oui. Nos paires sont faites de matières recyclées et récupérées, refaçonnées près de Dijon. Rien de neuf gaspillé."
       },
       {
         "q": "Où sont-ils fabriqués ?",
@@ -594,13 +629,13 @@ const CONFIG = {
   },
   "cta": {
     "title": "Portez le changement<em>.</em>",
-    "product": "Sneakers écoresponsables",
+    "product": "L'Originale · Bleu ciel",
     "price": "230€",
     "oldPrice": "",
-    "note": "Consigne de 15€ incluse, rendue à la reprise. Fabriqué en France, matières recyclées, pièce éco-conçue.",
+    "note": "L'Originale, notre paire signature. Consigne solidaire de 25€ créditée à la reprise de vos anciennes paires. Fabriquée en France, matières recyclées.",
     "micro": "Consigne solidaire · Fabriqué en France · Matières recyclées",
     "button": {
-      "label": "Précommander",
+      "label": "Ajouter au panier",
       "href": "#"
     }
   },
@@ -674,8 +709,12 @@ function glyph(){return `<svg class="glyph" viewBox="0 0 120 120" aria-hidden="t
 
 /* ---------- RENDER ---------- */
 const c=CONFIG, B=c.brand.name, A=a=>a||[];
+const HAS_WEBGL2=(()=>{try{return !!document.createElement('canvas').getContext('webgl2')}catch(e){return false}})();
+const m3dPoster=c.hero.model3d&&c.hero.model3d.poster;
 const heroVisual = c.hero.model3d
-  ? `<div class="hv-clip m3d"><model-viewer src="${c.hero.model3d.glb}" alt="${c.hero.model3d.alt||''}" camera-controls auto-rotate rotation-per-second="24deg" interaction-prompt="none" shadow-intensity="1.1" shadow-softness="1" exposure="1.05" environment-image="neutral" camera-orbit="22deg 80deg auto" field-of-view="16deg" min-field-of-view="8deg" max-field-of-view="40deg" touch-action="pan-y"></model-viewer></div>`
+  ? (HAS_WEBGL2
+     ? `<div class="hv-clip m3d"><model-viewer src="${c.hero.model3d.glb}"${m3dPoster?` poster="${c.hero.model3d.poster}"`:''} alt="${c.hero.model3d.alt||''}" camera-controls auto-rotate rotation-per-second="24deg" interaction-prompt="none" shadow-intensity="1.1" shadow-softness="1" exposure="1.05" environment-image="neutral" camera-orbit="22deg 80deg auto" field-of-view="16deg" min-field-of-view="8deg" max-field-of-view="40deg" touch-action="pan-y"></model-viewer></div>`
+     : `<div class="hv-clip m3d fb"><img class="m3d-fb" src="${c.hero.model3d.poster||''}" alt="${c.hero.model3d.alt||''}"></div>`)
   : c.hero.videoUrl
   ? `<div class="hv-clip"><video autoplay muted loop playsinline src="${c.hero.videoUrl}"></video></div>`
   : `<div class="hv-clip"><canvas id="sig" aria-hidden="true"></canvas><div class="orb" aria-hidden="true"><div class="ring"></div><div class="blob"></div></div></div>`;
@@ -745,31 +784,34 @@ ${c.gallery?`<section class="gallery" id="gallery">
   </div>
 </section>`:''}
 
-<section class="bento" id="bento">
+<section class="proof" id="bento">
   <div class="head"><h2 data-left>${c.bento.title}</h2><p data-right>${c.bento.lead}</p></div>
-  <div class="bento-grid">
-    ${A(c.bento.cells).map((cell,i)=>`<div class="cell ${cell.cls}" data-rise data-d="${(i%3)+1}"><div class="glow"></div>${cell.kpi?`<div class="kpi">${cell.kpi}</div>`:''}<h3>${cell.title}</h3><p>${cell.text}</p></div>`).join('')}
+  <div class="proof-grid">
+    <div class="proof-feature" data-left>
+      <span class="pf-eye mono">${c.bento.feature.eye||''}</span>
+      <div><div class="pf-kpi">${c.bento.feature.kpi}</div><h3>${c.bento.feature.title}</h3><p>${c.bento.feature.text}</p></div>
+    </div>
+    <div class="proof-rows" data-right>
+      ${A(c.bento.rows).map(r=>`<div class="prow"><div class="pr-k">${r.k}</div><div class="pr-t"><b>${r.b}</b><span>${r.s}</span></div></div>`).join('')}
+    </div>
   </div>
 </section>
 
 <section class="steps" id="steps">
   <div class="head"><h2 data-left>${c.steps.title.replace(/\n/g,'<br>')}</h2><p data-right>${c.steps.lead}</p></div>
   <div class="steps-scroll">
-    ${A(c.steps.items).map((s,i)=>`<article class="step"><div><span class="num">${s.num}</span><div class="art" aria-hidden="true"><div class="g"></div><div class="idx">0${i+1}</div></div></div><div><h3>${s.title}</h3><p>${s.text}</p></div></article>`).join('')}
+    ${A(c.steps.items).map((s,i)=>`<article class="step"><div class="st-top"><span class="num">${s.num}</span><span class="bigidx" aria-hidden="true">0${i+1}</span></div><div class="rule"></div><div><h3>${s.title}</h3><p>${s.text}</p></div></article>`).join('')}
   </div>
 </section>
 
-<section class="quote" id="quote">
+<section class="social" id="quote">
   <div class="bg" aria-hidden="true"></div>
   <div class="shell">
-    <div class="mark" aria-hidden="true">“</div>
-    <div>
-      ${c.quotesHead?`<div class="qhead" data-rise><span class="stars">${c.quotesHead.stars}</span> <b>${c.quotesHead.rating}</b> ${c.quotesHead.count}</div>`:''}
-      <div class="qcar" role="group" aria-roledescription="carrousel" aria-label="Avis clients" data-rise>
-        ${A(c.quotes).map((q,i)=>`<figure class="qslide${i===0?' on':''}" aria-hidden="${i!==0}"><blockquote>${q.em&&q.text.includes(q.em)?q.text.replace(q.em,`<em>${q.em}</em>`):q.text}</blockquote><figcaption class="cite"><div class="av" aria-hidden="true">${(q.author||B)[0]}</div><div><b>${q.author}</b><span>${q.role}</span></div></figcaption></figure>`).join('')}
-        <div class="qdots">${A(c.quotes).map((q,i)=>`<button class="qdot${i===0?' on':''}" data-i="${i}" aria-current="${i===0}" aria-label="Avis ${i+1}"></button>`).join('')}</div>
-      </div>
+    ${c.quotesHead?`<div class="s-head" data-rise><div class="s-rating">${c.quotesHead.rating}</div><div><div class="s-stars">${c.quotesHead.stars}</div><div class="s-count">${c.quotesHead.count}</div></div></div>`:''}
+    <div class="rev-wall">
+      ${A(c.quotes).map((q,i)=>`<figure class="rev" data-rise data-d="${(i%3)+1}"><div class="rv-stars" aria-hidden="true">★★★★★</div><blockquote>${q.em&&q.text.includes(q.em)?q.text.replace(q.em,`<em>${q.em}</em>`):q.text}</blockquote><figcaption class="rv-cite"><div class="rv-av" aria-hidden="true">${(q.author||B)[0]}</div><div><b>${q.author}</b><span>${q.role}</span></div></figcaption></figure>`).join('')}
     </div>
+    ${c.press&&c.press.length?`<div class="press-bar" data-rise><span class="pb-label">Vus dans la presse</span>${A(c.press).map((p,i)=>`${i?'<span class="pb-dot" aria-hidden="true"></span>':''}<span class="pb-item">${p.name}</span>`).join('')}</div>`:''}
   </div>
 </section>
 
@@ -788,14 +830,20 @@ ${c.gallery?`<section class="gallery" id="gallery">
 
 <section class="faq" id="faq">
   <div class="shell faq-shell">
-    <h2 data-left>${c.faq.title.replace(/\n/g,'<br>')}</h2>
-    <div class="faq-list" data-right>
-      ${A(c.faq.items).map(f=>`<details class="faq-item"><summary>${f.q}<span class="faq-ic" aria-hidden="true"></span></summary><div class="faq-a">${f.a}</div></details>`).join('')}
+    <div class="faq-left" data-left>
+      <h2>${c.faq.title.replace(/\n/g,'<br>')}</h2>
+      ${c.faq.aside?`<div class="faq-aside"><b>${c.faq.aside.title}</b><p>${c.faq.aside.text}</p><a class="btn-primary" href="${c.faq.aside.cta.href}">${c.faq.aside.cta.label}</a></div>`:''}
+    </div>
+    <div class="faq-panel" data-right>
+      <div class="faq-list">
+        ${A(c.faq.items).map(f=>`<details class="faq-item"><summary>${f.q}<span class="faq-ic" aria-hidden="true"></span></summary><div class="faq-a">${f.a}</div></details>`).join('')}
+      </div>
     </div>
   </div>
 </section>
 
 <section class="cta" id="cta">
+  <canvas id="ctaSig" class="cta-sig" aria-hidden="true"></canvas>
   <div class="shell">
     <h2 data-left>${c.cta.title}</h2>
     <div class="cta-side" data-right>
@@ -826,7 +874,7 @@ const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
 const coarse=matchMedia('(pointer:coarse)').matches;
 
 /* ---------- MODÈLE 3D niche (model-viewer chargé à la demande) ---------- */
-if(CONFIG.hero.model3d){const s=document.createElement('script');s.type='module';s.src='https://cdn.jsdelivr.net/npm/@google/model-viewer@3.5.0/dist/model-viewer.min.js';document.head.appendChild(s);}
+if(CONFIG.hero.model3d && HAS_WEBGL2){const s=document.createElement('script');s.type='module';s.src='https://cdn.jsdelivr.net/npm/@google/model-viewer@3.5.0/dist/model-viewer.min.js';document.head.appendChild(s);}
 
 /* ---------- REVEALS ---------- */
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.16});
@@ -894,9 +942,8 @@ if(!reduce){addEventListener('mousemove',e=>{const dx=(e.clientX/innerWidth-.5),
 
 /* ---------- SIGNATURE 3D : WebGL raymarch maison (pausé hors écran) ---------- */
 function hexToRGB(h){h=(h||'#000000').replace('#','');return[parseInt(h.slice(0,2),16)/255,parseInt(h.slice(2,4),16)/255,parseInt(h.slice(4,6),16)/255];}
-function initHero3D(){
-  if(CONFIG.hero.model3d||CONFIG.hero.videoUrl)return;
-  const canvas=document.getElementById('sig');if(!canvas)return;
+function mountRaymarch(canvas,onLive){
+  if(!canvas)return;
   const gl=canvas.getContext('webgl',{antialias:false,alpha:false,premultipliedAlpha:false,powerPreference:'low-power'})||canvas.getContext('experimental-webgl');
   if(!gl)return;
   const CA=hexToRGB(CONFIG.theme.accent),CB=hexToRGB(CONFIG.theme.accent2),CC=hexToRGB(CONFIG.theme.accent3);
@@ -938,7 +985,7 @@ function initHero3D(){
   const dpr=Math.min(devicePixelRatio||1,1.5);
   function size(){const r=canvas.getBoundingClientRect();canvas.width=Math.max(1,r.width*dpr);canvas.height=Math.max(1,r.height*dpr);gl.viewport(0,0,canvas.width,canvas.height);}
   size();new ResizeObserver(size).observe(canvas);
-  document.getElementById('hv').classList.add('live');
+  if(onLive)onLive();
   let mx=0,my=0,raf=0,inView=true,clock=0,last=performance.now();const spd=reduce?0.15:1;
   function frame(now){const dt=now-last;last=now;clock+=dt*spd;
     if(!reduce){const tx=window.__mx||0,ty=window.__my||0;mx+=(tx-mx)*.06;my+=(ty-my)*.06;}
@@ -951,7 +998,10 @@ function initHero3D(){
   document.addEventListener('visibilitychange',()=>document.hidden?halt():(inView&&run()));
   run();
 }
-initHero3D();
+/* hero: shader seulement si pas de modèle 3D ni vidéo */
+if(!CONFIG.hero.model3d&&!CONFIG.hero.videoUrl){mountRaymarch(document.getElementById('sig'),()=>{const hv=document.getElementById('hv');if(hv)hv.classList.add('live');});}
+/* CTA: signature visuelle animée hors hero (WebGL1, robuste) */
+mountRaymarch(document.getElementById('ctaSig'));
 </script>
 </body>
 </html>
