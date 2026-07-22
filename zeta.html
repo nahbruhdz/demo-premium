@@ -875,7 +875,7 @@ document.getElementById('app').innerHTML = `
     <div class="hero-visual" id="hv">
       ${heroVisual}
       ${A(c.hero.tags).map((t,i)=>`<div class="tag t${i+1}" data-par="${i?0.5:0.8}"><span class="k">${t.k}</span><span class="v">${t.v}</span></div>`).join('')}
-      ${c.hero.model3d?`<p class="hero-note3d">${c.hero.note3d||'Démonstration de ce qui est possible. La version finale est mise en scène sur mesure pour vos vrais produits.'}</p>`:''}
+      ${c.hero.model3d?`<p class="hero-note3d">${(c.hero.model3d&&c.hero.model3d.note3d)||c.hero.note3d||'Démonstration de ce qui est possible. La version finale est mise en scène sur mesure pour vos vrais produits.'}</p>`:''}
     </div>
   </div>
 </header>
