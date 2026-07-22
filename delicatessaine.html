@@ -83,7 +83,7 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:60;opa
 /* ---- HERO VIDEO PLEIN ECRAN ---- */
 .hero.vfull{min-height:88vh;display:flex;align-items:center;overflow:hidden}
 .hero.vfull .hero-vbg{position:absolute;inset:0;z-index:0;overflow:hidden}
-.hero.vfull .hero-vbg video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero.vfull .hero-vbg video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
 .hero.vfull .hero-vbg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,color-mix(in srgb,var(--hero-bg) 62%,transparent) 0%,color-mix(in srgb,var(--hero-bg) 30%,transparent) 42%,color-mix(in srgb,var(--hero-bg) 88%,transparent) 100%),linear-gradient(90deg,color-mix(in srgb,var(--hero-bg) 78%,transparent) 0%,color-mix(in srgb,var(--hero-bg) 20%,transparent) 62%,transparent 100%)}
 .hero.vfull .hero-grid{grid-template-columns:1fr;max-width:min(760px,92vw);margin-left:max(28px,calc((100vw - var(--shell))/2));margin-right:auto}
 .hero.vfull h1{font-size:clamp(2.6rem,6vw,5rem)}
@@ -841,7 +841,7 @@ document.getElementById('app').innerHTML = `
 </div>
 
 <header class="hero${c.hero.heroVideo?' vfull':''}">
-  ${c.hero.heroVideo?`<div class="hero-vbg" aria-hidden="true"><video autoplay muted loop playsinline${c.hero.heroPoster?` poster="${c.hero.heroPoster}"`:''} src="${c.hero.heroVideo}"></video></div>`:`<div class="hero-bg" aria-hidden="true"></div>`}
+  ${c.hero.heroVideo?`<div class="hero-vbg" aria-hidden="true"><video id="heroVid" autoplay muted loop playsinline webkit-playsinline preload="auto"${c.hero.heroPoster?` poster="${c.hero.heroPoster}"`:''} src="${c.hero.heroVideo}"></video></div>`:`<div class="hero-bg" aria-hidden="true"></div>`}
   <div class="hero-grid">
     <div>
       <div class="eyebrow mono"><span>${c.hero.eyebrow}</span></div>
@@ -1030,6 +1030,19 @@ try{
 /* ---------- ETAT GLOBAL ---------- */
 const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
 const coarse=matchMedia('(pointer:coarse)').matches;
+/* ---------- Hero video: autoplay boucle robuste (iOS Safari inclus) ---------- */
+(function(){
+  const hv=document.getElementById('heroVid');
+  if(!hv)return;
+  hv.muted=true;hv.defaultMuted=true;hv.loop=true;hv.setAttribute('muted','');
+  const kick=()=>{const p=hv.play();if(p&&p.catch)p.catch(()=>{});};
+  hv.addEventListener('canplay',kick,{once:false});
+  hv.addEventListener('loadeddata',kick);
+  if(hv.readyState>=2)kick();
+  ['touchstart','click','scroll','pointerdown'].forEach(ev=>document.addEventListener(ev,kick,{once:true,passive:true}));
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden)kick();});
+  setTimeout(kick,600);setTimeout(kick,1600);
+})();
 
 /* ---------- MODÈLE 3D niche (model-viewer chargé à la demande) ---------- */
 if(CONFIG.hero.model3d && HAS_WEBGL2){const s=document.createElement('script');s.type='module';s.src='https://cdn.jsdelivr.net/npm/@google/model-viewer@3.5.0/dist/model-viewer.min.js';document.head.appendChild(s);}
