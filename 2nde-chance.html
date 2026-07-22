@@ -194,14 +194,17 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:60;opa
 .social{padding:104px 0;background:var(--ink);color:var(--paper);position:relative;overflow:hidden}
 .social .bg{position:absolute;inset:0;background:radial-gradient(50% 80% at 85% 15%,color-mix(in srgb,var(--accent) 20%,transparent),transparent 60%)}
 .social .shell{position:relative}
-.s-head{display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-bottom:42px}
-.s-rating{font-family:"Fraunces";font-size:3.4rem;font-weight:500;line-height:1;color:#fff}
-.s-stars{color:#FFC24B;font-size:1.25rem;letter-spacing:3px}
-.s-count{color:rgba(245,244,251,.66);font-size:.95rem;margin-top:3px}
-.rev-wall{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.rev{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:28px;backdrop-filter:blur(6px);display:flex;flex-direction:column;gap:16px}
+.s-head{display:flex;align-items:center;gap:28px;flex-wrap:wrap;margin-bottom:38px}
+.s-score{display:flex;align-items:center;gap:16px}
+.s-rating{font-family:"Fraunces";font-size:clamp(3rem,4.4vw,4.3rem);font-weight:500;line-height:.92;color:#fff}
+.s-stars{color:#FFC24B;font-size:1.3rem;letter-spacing:3px}
+.s-count{color:rgba(245,244,251,.68);font-size:.98rem;margin-top:4px}
+.s-sep{width:1px;height:58px;background:rgba(255,255,255,.16)}
+.s-sub{font-family:"Fraunces";font-weight:300;font-size:clamp(1.3rem,2.1vw,1.9rem);color:rgba(255,255,255,.94);max-width:20ch;line-height:1.16}
+.rev-wall{display:grid;grid-template-columns:repeat(auto-fit,minmax(266px,1fr));gap:16px}
+.rev{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:26px;backdrop-filter:blur(6px);display:flex;flex-direction:column;gap:15px}
 .rev .rv-stars{color:#FFC24B;letter-spacing:2px;font-size:.86rem}
-.rev blockquote{font-family:"Fraunces";font-weight:300;font-size:1.22rem;line-height:1.32}
+.rev blockquote{font-family:"Fraunces";font-weight:300;font-size:1.18rem;line-height:1.32}
 .rev blockquote em{font-style:italic;color:var(--accent-2)}
 .rev .rv-cite{display:flex;align-items:center;gap:12px;margin-top:auto}
 .rev .rv-av{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font-family:"Fraunces";background:linear-gradient(135deg,var(--accent),var(--accent-3));color:#fff;font-size:1rem;flex:none}
@@ -212,14 +215,21 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:60;opa
 .press-bar .pb-item{font-family:"Fraunces";font-size:1.14rem;color:rgba(245,244,251,.92)}
 .press-bar .pb-dot{width:4px;height:4px;border-radius:50%;background:var(--accent-2)}
 
-/* ================= GARANTIE (risk-reversal) ================= */
-.guarantee{padding:96px 0;background:linear-gradient(120deg,color-mix(in srgb,var(--accent) 10%,var(--paper)),color-mix(in srgb,var(--accent-2) 8%,var(--paper)))}
-.guarantee .shell{display:grid;grid-template-columns:1.1fr .9fr;gap:50px;align-items:center}
+/* ================= GARANTIE (risk-reversal + aurore signature) ================= */
+.guarantee{position:relative;overflow:hidden;padding:96px 0;background:linear-gradient(120deg,color-mix(in srgb,var(--accent) 10%,var(--paper)),color-mix(in srgb,var(--accent-2) 8%,var(--paper)))}
+.g-aurora{position:absolute;inset:-30%;z-index:0;pointer-events:none;filter:blur(58px) saturate(1.45);opacity:.72;
+  background:radial-gradient(38% 46% at 20% 28%,color-mix(in srgb,var(--accent) 58%,transparent),transparent 60%),radial-gradient(34% 42% at 80% 62%,color-mix(in srgb,var(--accent-2) 52%,transparent),transparent 60%),radial-gradient(30% 38% at 56% 88%,color-mix(in srgb,var(--accent-3) 48%,transparent),transparent 60%);
+  animation:aurora 20s var(--ease-2) infinite alternate;will-change:transform}
+@keyframes aurora{0%{transform:translate3d(-4%,-2%,0) scale(1.06) rotate(0deg)}50%{transform:translate3d(3%,4%,0) scale(1.14) rotate(4deg)}100%{transform:translate3d(-2%,3%,0) scale(1.09) rotate(-3deg)}}
+.guarantee .shell{position:relative;z-index:1;display:grid;grid-template-columns:1.1fr .9fr;gap:50px;align-items:center}
+.g-pillars{position:relative}
+.g-pillars::before{content:"";position:absolute;inset:-16% -10%;z-index:-1;border-radius:34px;background:conic-gradient(from 0deg,color-mix(in srgb,var(--accent) 42%,transparent),color-mix(in srgb,var(--accent-2) 42%,transparent),color-mix(in srgb,var(--accent-3) 38%,transparent),color-mix(in srgb,var(--accent) 42%,transparent));filter:blur(40px);opacity:.55;animation:spin 24s linear infinite}
 .g-copy .mono{color:var(--accent-2-ink);display:block;margin-bottom:18px}
 .g-copy h2{font-size:clamp(2rem,3.6vw,3.2rem);margin-bottom:18px}
 .g-copy p{color:rgba(7,7,15,.72);max-width:46ch}
 .g-pillars{display:flex;gap:16px}
-.g-pill{flex:1;background:rgba(255,255,255,.7);border:1px solid var(--line);border-radius:16px;padding:24px 18px;text-align:center;backdrop-filter:blur(6px)}
+.g-pill{flex:1;background:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.72);border-radius:16px;padding:26px 18px;text-align:center;backdrop-filter:blur(16px) saturate(1.4);-webkit-backdrop-filter:blur(16px) saturate(1.4);box-shadow:0 22px 54px -32px rgba(14,15,13,.42),0 1px 0 rgba(255,255,255,.75) inset;transition:transform .5s var(--ease),box-shadow .5s var(--ease)}
+.g-pill:hover{transform:translateY(-5px);box-shadow:0 36px 66px -30px color-mix(in srgb,var(--accent) 48%,transparent)}
 .g-pill b{font-family:"Fraunces";font-size:1.6rem;font-weight:500;display:block;color:var(--accent)}
 .g-pill span{font-size:.82rem;color:rgba(7,7,15,.66);display:block;margin-top:4px}
 
@@ -308,7 +318,7 @@ footer .fine{width:var(--shell);margin:44px auto 0;padding-top:22px;border-top:1
   .hero-sub,.hero-actions,.hero-trust,.hero-visual{opacity:1!important;animation:none!important}
   [data-rise],[data-left],[data-right]{transform:none!important}
   .marquee-track{animation-duration:120s!important}
-  .hero-bg,.orb .blob,.orb .ring{animation:none!important}
+  .hero-bg,.orb .blob,.orb .ring,.g-aurora,.g-pillars::before{animation:none!important}
 }
 </style>
 </head>
@@ -542,7 +552,8 @@ const CONFIG = {
   "quotesHead": {
     "stars": "★★★★★",
     "rating": "4,8/5",
-    "count": "sur les avis de nos clients"
+    "count": "sur 63 avis clients vérifiés",
+    "sub": "Portées, rapportées, recommandées."
   },
   "quotes": [
     {
@@ -562,6 +573,12 @@ const CONFIG = {
       "em": "rien à envier",
       "author": "Manon V., Lyon",
       "role": "★★★★★ · Cliente vérifiée"
+    },
+    {
+      "text": "Commandées pour tester, adoptées direct. Le concept a du sens et la paire tient la route.",
+      "em": "adoptées direct",
+      "author": "Yanis B., Chalon",
+      "role": "★★★★★ · Client vérifié"
     }
   ],
   "press": [
@@ -807,7 +824,7 @@ ${c.gallery?`<section class="gallery" id="gallery">
 <section class="social" id="quote">
   <div class="bg" aria-hidden="true"></div>
   <div class="shell">
-    ${c.quotesHead?`<div class="s-head" data-rise><div class="s-rating">${c.quotesHead.rating}</div><div><div class="s-stars">${c.quotesHead.stars}</div><div class="s-count">${c.quotesHead.count}</div></div></div>`:''}
+    ${c.quotesHead?`<div class="s-head" data-rise><div class="s-score"><div class="s-rating">${c.quotesHead.rating}</div><div><div class="s-stars">${c.quotesHead.stars}</div><div class="s-count">${c.quotesHead.count}</div></div></div>${c.quotesHead.sub?`<div class="s-sep"></div><div class="s-sub">${c.quotesHead.sub}</div>`:''}</div>`:''}
     <div class="rev-wall">
       ${A(c.quotes).map((q,i)=>`<figure class="rev" data-rise data-d="${(i%3)+1}"><div class="rv-stars" aria-hidden="true">★★★★★</div><blockquote>${q.em&&q.text.includes(q.em)?q.text.replace(q.em,`<em>${q.em}</em>`):q.text}</blockquote><figcaption class="rv-cite"><div class="rv-av" aria-hidden="true">${(q.author||B)[0]}</div><div><b>${q.author}</b><span>${q.role}</span></div></figcaption></figure>`).join('')}
     </div>
@@ -816,6 +833,7 @@ ${c.gallery?`<section class="gallery" id="gallery">
 </section>
 
 <section class="guarantee" id="guarantee">
+  <div class="g-aurora" aria-hidden="true"></div>
   <div class="shell">
     <div class="g-copy" data-left>
       <span class="mono">${c.guarantee.eyebrow}</span>
