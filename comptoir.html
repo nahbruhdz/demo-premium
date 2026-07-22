@@ -80,6 +80,8 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:60;opa
 .hero-trust .stat span{color:rgba(245,244,251,.66);font-size:.82rem}
 .hero-trust .sep{width:1px;height:34px;background:var(--line-d)}
 .hero-visual{position:relative;aspect-ratio:4/5;border-radius:22px;opacity:0;animation:fade 1.2s var(--ease) .3s forwards}
+.hero-note3d{position:absolute;left:0;right:0;bottom:-30px;margin:0;font-size:.72rem;line-height:1.4;color:color-mix(in srgb,var(--paper) 40%,transparent);letter-spacing:.01em;text-align:center;opacity:0;animation:fade 1s var(--ease) 1s forwards}
+@media(max-width:900px){.hero-note3d{position:static;text-align:left;margin-top:22px}}
 .hv-clip{position:absolute;inset:0;border-radius:22px;overflow:hidden;background:radial-gradient(120% 120% at 32% 20%,#14131f,#070510);box-shadow:0 50px 100px -46px rgba(0,0,0,.8),0 2px 0 rgba(255,255,255,.14) inset}
 .hv-clip.m3d{background:none;box-shadow:none;border-radius:0;overflow:visible}
 .hv-clip.m3d::before{content:"";position:absolute;inset:-10%;z-index:0;background:radial-gradient(circle at 52% 54%,color-mix(in srgb,var(--accent) 30%,transparent),transparent 60%);filter:blur(52px)}
@@ -472,6 +474,7 @@ const CONFIG = {
       }
     ],
     "model3d": {
+      "note3d": "Aperçu de notre savoir-faire. Le rendu final est mis en scène sur mesure à partir de vos vrais pots.",
       "glb": "miel.glb",
       "poster": "miel-poster.webp",
       "alt": "Pot de miel rare Le Comptoir du Miel, modèle 3D interactif"
@@ -864,6 +867,7 @@ document.getElementById('app').innerHTML = `
     <div class="hero-visual" id="hv">
       ${heroVisual}
       ${A(c.hero.tags).map((t,i)=>`<div class="tag t${i+1}" data-par="${i?0.5:0.8}"><span class="k">${t.k}</span><span class="v">${t.v}</span></div>`).join('')}
+      ${c.hero.model3d?`<p class="hero-note3d">${c.hero.note3d||'Démonstration de ce qui est possible. La version finale est mise en scène sur mesure pour vos vrais produits.'}</p>`:''}
     </div>
   </div>
 </header>
