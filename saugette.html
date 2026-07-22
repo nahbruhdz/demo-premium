@@ -474,7 +474,7 @@ const CONFIG = {
       }
     ],
     "model3d": {
-      "note3d": "Ce rendu 3D démontre un savoir-faire, à titre d'exemple. Votre site final serait défini avec vous, selon ce que vous voulez vraiment.",
+      "note3d": "Démonstration signée Kuro : ce rendu 3D prouve un savoir-faire, pas le visuel sur mesure de vos bougies. Votre site final serait conçu à part, avec vous.",
       "glb": "saug.glb",
       "poster": "saug-poster.webp",
       "fov": 36,
@@ -827,9 +827,11 @@ const m3dOrbit = (c.hero.model3d && c.hero.model3d.orbit) || (m3dFit==='wide'?'2
 const m3dCam = m3dFit==='wide'
   ? `camera-orbit="${m3dOrbit}" field-of-view="${m3dFov}deg" min-field-of-view="8deg" max-field-of-view="45deg"`
   : `camera-orbit="${m3dOrbit}" field-of-view="${m3dFov}deg" disable-zoom`;
+const m3dSway = (c.hero.model3d && typeof c.hero.model3d.sway==='number') ? c.hero.model3d.sway : null;
+const m3dBaseAz = parseFloat((m3dOrbit.split(/\s+/)[0]||'0').replace('deg',''))||0;
 const heroVisual = c.hero.model3d
   ? (HAS_WEBGL2
-     ? `<div class="hv-clip m3d${m3dFit==='wide'?'':' prod'}"><model-viewer src="${c.hero.model3d.glb}"${m3dPoster?` poster="${c.hero.model3d.poster}"`:''} alt="${c.hero.model3d.alt||''}" camera-controls auto-rotate rotation-per-second="26deg" interaction-prompt="none" shadow-intensity="1.05" shadow-softness="1" exposure="1.05" environment-image="neutral" ${m3dCam} touch-action="pan-y"></model-viewer></div>`
+     ? `<div class="hv-clip m3d${m3dFit==='wide'?'':' prod'}"><model-viewer id="heroMv" src="${c.hero.model3d.glb}"${m3dPoster?` poster="${c.hero.model3d.poster}"`:''} alt="${c.hero.model3d.alt||''}" camera-controls ${m3dSway===null?'auto-rotate rotation-per-second="26deg"':''} data-sway="${m3dSway===null?'':m3dSway}" data-baseaz="${m3dBaseAz}" interaction-prompt="none" shadow-intensity="1.05" shadow-softness="1" exposure="1.05" environment-image="neutral" ${m3dCam} touch-action="pan-y"></model-viewer></div>`
      : `<div class="hv-clip m3d${m3dFit==='wide'?'':' prod'} fb"><img class="m3d-fb" src="${c.hero.model3d.poster||''}" alt="${c.hero.model3d.alt||''}"></div>`)
   : c.hero.videoUrl
   ? `<div class="hv-clip"><video autoplay muted loop playsinline src="${c.hero.videoUrl}"></video></div>`
@@ -1033,6 +1035,31 @@ const coarse=matchMedia('(pointer:coarse)').matches;
 
 /* ---------- MODÈLE 3D niche (model-viewer chargé à la demande) ---------- */
 if(CONFIG.hero.model3d && HAS_WEBGL2){const s=document.createElement('script');s.type='module';s.src='https://cdn.jsdelivr.net/npm/@google/model-viewer@3.5.0/dist/model-viewer.min.js';document.head.appendChild(s);}
+/* ---------- Oscillation bornée (modèles à face avant, jamais de dos/tranche) ---------- */
+if(CONFIG.hero.model3d && HAS_WEBGL2 && !reduce){
+  const mv=document.getElementById('heroMv');
+  if(mv){
+    const swayRaw=mv.getAttribute('data-sway');
+    const sway=swayRaw!==''&&swayRaw!=null?parseFloat(swayRaw):null;
+    if(sway!==null && !isNaN(sway)){
+      const baseAz=parseFloat(mv.getAttribute('data-baseaz'))||0;
+      let t0=null;const period=9000;let elev='80deg';
+      const start=()=>{
+        const co=mv.getCameraOrbit?mv.getCameraOrbit():null;
+        if(co){elev=co.phi!==undefined?(co.phi*180/Math.PI).toFixed(1)+'deg':elev;}
+        const loop=(ts)=>{
+          if(t0===null)t0=ts;
+          const p=((ts-t0)%period)/period;
+          const az=baseAz+Math.sin(p*Math.PI*2)*sway;
+          mv.cameraOrbit=`${az.toFixed(2)}deg ${elev} auto`;
+          requestAnimationFrame(loop);
+        };
+        requestAnimationFrame(loop);
+      };
+      if(mv.loaded)start(); else mv.addEventListener('load',start,{once:true});
+    }
+  }
+}
 
 /* ---------- REVEALS ---------- */
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.16});
