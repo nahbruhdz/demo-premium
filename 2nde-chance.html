@@ -86,7 +86,10 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:60;opa
 .hv-clip.m3d::after{content:"";position:absolute;left:6%;right:6%;bottom:2%;height:9%;z-index:0;background:radial-gradient(ellipse at center,rgba(0,0,0,.55),transparent 72%);filter:blur(10px)}
 .hv-clip:not(.m3d) model-viewer{position:absolute;inset:0;width:100%;height:100%;--poster-color:transparent;background-color:transparent;z-index:1}
 .hv-clip.m3d model-viewer{position:absolute;inset:-14% -12% -14% -26%;width:auto;height:auto;--poster-color:transparent;background-color:transparent;z-index:1}
-.hv-clip.m3d.prod model-viewer{inset:2% 2% 4% 2%}
+.hv-clip.m3d.prod model-viewer{inset:11% 9% 13% 9%}
+@keyframes heroFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+.hv-clip.m3d model-viewer{animation:heroFloat 5s var(--ease-2) infinite}
+@media(prefers-reduced-motion:reduce){.hv-clip.m3d model-viewer{animation:none}}
 .hv-clip.m3d .m3d-fb{position:absolute;inset:-6% -4% -6% -14%;width:auto;height:112%;object-fit:contain;z-index:1;filter:drop-shadow(0 40px 60px rgba(0,0,0,.55))}
 .hv-clip canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
 .hv-clip video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
@@ -818,7 +821,7 @@ const m3dPoster=c.hero.model3d&&c.hero.model3d.poster;
 const m3dFit = (c.hero.model3d && c.hero.model3d.fit) || 'product';
 const m3dCam = m3dFit==='wide'
   ? 'camera-orbit="22deg 80deg auto" field-of-view="16deg" min-field-of-view="8deg" max-field-of-view="40deg"'
-  : 'camera-orbit="0deg 78deg auto" min-field-of-view="26deg" max-field-of-view="46deg"';
+  : 'camera-orbit="0deg 74deg auto" field-of-view="32deg" disable-zoom';
 const heroVisual = c.hero.model3d
   ? (HAS_WEBGL2
      ? `<div class="hv-clip m3d${m3dFit==='wide'?'':' prod'}"><model-viewer src="${c.hero.model3d.glb}"${m3dPoster?` poster="${c.hero.model3d.poster}"`:''} alt="${c.hero.model3d.alt||''}" camera-controls auto-rotate rotation-per-second="26deg" interaction-prompt="none" shadow-intensity="1.05" shadow-softness="1" exposure="1.05" environment-image="neutral" ${m3dCam} touch-action="pan-y"></model-viewer></div>`
