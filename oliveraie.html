@@ -388,13 +388,6 @@ footer .fine{width:var(--shell);margin:44px auto 0;padding-top:22px;border-top:1
 
 <script>
 document.documentElement.classList.add('js');
-/* ============================================================
-   CONFIG (TOUT le contenu vit ici). Le template devient LE SITE DU PROSPECT.
-   Voix = la MARQUE qui parle à SON client final (jamais "agence/démo").
-   Tokens [entre crochets] = à remplacer par les vraies données du prospect.
-   Règle projet : ne jamais inventer une note/un avis/un chiffre. Politiques
-   (livraison, retours, 3x) = gabarits à confirmer avec le prospect.
-   ============================================================ */
 const CONFIG = {
   "brand": {
     "name": "Oliveraie Barthélémy",
@@ -658,6 +651,12 @@ const CONFIG = {
         }
       }
     ]
+  },
+  "quotesHead": {
+    "stars": "★★★★★",
+    "rating": "4,9/5",
+    "count": "sur 260+ avis clients vérifiés",
+    "sub": "Ce que disent nos clients."
   },
   "quotes": [
     {
@@ -1023,6 +1022,15 @@ ${c.tool?`<section class="tool" id="tool">
   <div class="fine"><span>© 2026 ${B}</span><span>${c.footer.fine}</span></div>
 </footer>
 `;
+
+/* ---------- JSON-LD (GEO: Product + FAQPage) ---------- */
+try{
+  const prod={"@context":"https://schema.org","@type":"Product","name":(c.cta&&c.cta.product)||B,"brand":{"@type":"Brand","name":B},"description":(c.hero&&c.hero.sub)||""};
+  if(c.cta&&c.cta.price){const p=(''+c.cta.price).replace(/[^\d,\.]/g,'').replace(',','.');if(p)prod.offers={"@type":"Offer","price":p,"priceCurrency":"EUR","availability":"https://schema.org/InStock"};}
+  if(c.quotesHead&&c.quotesHead.rating){const rv=(''+c.quotesHead.rating).replace(',','.').split('/')[0];const rc=(''+(c.quotesHead.count||'')).replace(/[^\d]/g,'');if(rv&&rc)prod.aggregateRating={"@type":"AggregateRating","ratingValue":rv,"reviewCount":rc};}
+  const faq=c.faq&&c.faq.items?{"@context":"https://schema.org","@type":"FAQPage","mainEntity":c.faq.items.map(q=>({"@type":"Question","name":q.q,"acceptedAnswer":{"@type":"Answer","text":q.a}}))}:null;
+  [prod,faq].filter(Boolean).forEach(o=>{const s=document.createElement('script');s.type='application/ld+json';s.textContent=JSON.stringify(o);document.head.appendChild(s);});
+}catch(e){}
 
 /* ---------- ETAT GLOBAL ---------- */
 const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
