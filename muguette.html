@@ -83,7 +83,7 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:60;opa
 /* ---- HERO VIDEO PLEIN ECRAN ---- */
 .hero.vfull{min-height:88vh;display:flex;align-items:center;overflow:hidden}
 .hero.vfull .hero-vbg{position:absolute;inset:0;z-index:0;overflow:hidden}
-.hero.vfull .hero-vbg video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
+.hero.vfull .hero-vbg video,.hero.vfull .hero-vbg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
 .hero.vfull .hero-vbg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,color-mix(in srgb,var(--hero-bg) 62%,transparent) 0%,color-mix(in srgb,var(--hero-bg) 30%,transparent) 42%,color-mix(in srgb,var(--hero-bg) 88%,transparent) 100%),linear-gradient(90deg,color-mix(in srgb,var(--hero-bg) 78%,transparent) 0%,color-mix(in srgb,var(--hero-bg) 20%,transparent) 62%,transparent 100%)}
 .hero.vfull .hero-grid{grid-template-columns:1fr;max-width:min(760px,92vw);margin-left:max(28px,calc((100vw - var(--shell))/2));margin-right:auto}
 .hero.vfull h1{font-size:clamp(2.6rem,6vw,5rem)}
@@ -464,7 +464,8 @@ const CONFIG = {
         "v": "Team building",
         "k": "& cours réguliers"
       }
-    ]
+    ],
+    "heroImage": "muguette-prod-2.webp"
   },
   "signal": {
     "label": "Repéré",
@@ -838,8 +839,8 @@ document.getElementById('app').innerHTML = `
   <a class="mm-cta" href="${c.nav.cta.href}" data-close>${c.nav.cta.label}</a>
 </div>
 
-<header class="hero${c.hero.heroVideo?' vfull':''}">
-  ${c.hero.heroVideo?`<div class="hero-vbg" aria-hidden="true"><video id="heroVid" autoplay muted loop playsinline webkit-playsinline preload="auto"${c.hero.heroPoster?` poster="${c.hero.heroPoster}"`:''} src="${c.hero.heroVideo}"></video></div>`:`<div class="hero-bg" aria-hidden="true"></div>`}
+<header class="hero${c.hero.heroVideo||c.hero.heroImage?' vfull':''}">
+  ${c.hero.heroVideo?`<div class="hero-vbg" aria-hidden="true"><video id="heroVid" autoplay muted loop playsinline webkit-playsinline preload="auto"${c.hero.heroPoster?` poster="${c.hero.heroPoster}"`:''} src="${c.hero.heroVideo}"></video></div>`:c.hero.heroImage?`<div class="hero-vbg" aria-hidden="true"><img src="${c.hero.heroImage}" alt=""></div>`:`<div class="hero-bg" aria-hidden="true"></div>`}
   <div class="hero-grid">
     <div>
       <div class="eyebrow mono"><span>${c.hero.eyebrow}</span></div>
@@ -853,7 +854,7 @@ document.getElementById('app').innerHTML = `
         ${A(c.hero.stats).map((s,i)=>`${i?'<div class="sep"></div>':''}<div class="stat"><b>${s.v}</b><span>${s.k}</span></div>`).join('')}
       </div>
     </div>
-    ${c.hero.heroVideo?'':`<div class="hero-visual" id="hv">
+    ${c.hero.heroVideo||c.hero.heroImage?'':`<div class="hero-visual" id="hv">
       ${heroVisual}
       ${A(c.hero.tags).map((t,i)=>`<div class="tag t${i+1}" data-par="${i?0.5:0.8}"><span class="k">${t.k}</span><span class="v">${t.v}</span></div>`).join('')}
       ${c.hero.model3d?`<p class="hero-note3d">${(c.hero.model3d&&c.hero.model3d.note3d)||c.hero.note3d||'Démonstration de ce qui est possible. La version finale est mise en scène sur mesure pour vos vrais produits.'}</p>`:''}
